@@ -18,10 +18,14 @@ router.get('/', authMiddleware, (req, res) => { //GetAllUsers
     await userController.handleLogout(req, res);
 }).post('/logoutAll', authMiddleware, async (req, res) => { //Logout
     await userController.handleLogoutAll(req, res);
-}).delete('/?id=:id', authMiddleware, adminCheck, (req, res) => { //Delete
+}).delete('/?id=:id', authMiddleware, adminCheck, (req, res) => { //Delete using id (admin access)
     userController.deleteUser(req, res);
-}).put('/?id=:id', authMiddleware, adminCheck, async (req, res) => { //Update whole user
+}).delete('/me', authMiddleware, (req, res) => { //Delete me
+    userController.deleteMe(req, res);
+}).put('/?id=:id', authMiddleware, adminCheck, async (req, res) => { //Update whole user using id (admin access)
     await userController.updateUser(req, res);
+}).put('/me', authMiddleware, async (req, res) => { //Update whole me
+    await userController.updateMe(req, res);
 })
 
 module.exports = router;

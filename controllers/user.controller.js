@@ -42,10 +42,16 @@ const deleteUser = (req, res) => {
     })
 }
 
+const deleteMe = (req, res) => {
+    const id = jwt.verify(req.token,process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
+    req.params.id = id; //reuse already implemented function
+    return deleteUser(req,res);
+}
+
 const updateUser = async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, email, password } = req.body;
-    const updatedUser = { firstName, lastName, email, password: password.length > 0 ? await bcrypt.hash(password, 8) : "" }
+    const updatedUser = { firstName, lastName, email, password: password ? await bcrypt.hash(password, 8) : "" }
     userModel.findOne({ email }, (err, data) => {
         if (err) return res.status(404).json({ message: err.message });
         if (data && data._id.toString() !== id) return res.status(404).json({ message: 'email already in use' }) //check if someone else already has the email address we want to change to
@@ -57,6 +63,12 @@ const updateUser = async (req, res) => {
             })
         }
     })
+}
+
+const updateMe = (req, res) => {
+    const id = jwt.verify(req.token,process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
+    req.params.id = id; //reuse already implemented function
+    return updateUser(req,res); //body already has what's needed, no need to add
 }
 
 const myProfile = async (req, res) => {
@@ -98,10 +110,12 @@ const handleLogoutAll = async (req, res) => {
 module.exports = {
     getAllUsers,
     getSpecificUser,
+    myProfile,
     addNewUser,
     deleteUser,
+    deleteMe,
     updateUser,
-    myProfile,
+    updateMe,
     handleLogin,
     handleLogout,
     handleLogoutAll,
