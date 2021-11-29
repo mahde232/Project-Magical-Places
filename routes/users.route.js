@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
 const authMiddleware = require('../express_middleware/auth')
-const adminCheck = require('../express_middleware/adminCheck')
+const adminCheckUsers = require('../express_middleware/adminCheckUsers')
 const router = express.Router();
 
 router.get('/', authMiddleware, (req, res) => { //GetAllUsers
@@ -18,11 +18,11 @@ router.get('/', authMiddleware, (req, res) => { //GetAllUsers
     await userController.handleLogout(req, res);
 }).post('/logoutAll', authMiddleware, async (req, res) => { //Logout
     await userController.handleLogoutAll(req, res);
-}).delete('/?id=:id', authMiddleware, adminCheck, (req, res) => { //Delete using id (admin access)
+}).delete('/?id=:id', authMiddleware, adminCheckUsers, (req, res) => { //Delete using id (admin access)
     userController.deleteUser(req, res);
 }).delete('/me', authMiddleware, (req, res) => { //Delete me
     userController.deleteMe(req, res);
-}).put('/?id=:id', authMiddleware, adminCheck, async (req, res) => { //Update whole user using id (admin access)
+}).put('/?id=:id', authMiddleware, adminCheckUsers, async (req, res) => { //Update whole user using id (admin access)
     await userController.updateUser(req, res);
 }).put('/me', authMiddleware, async (req, res) => { //Update whole me
     await userController.updateMe(req, res);

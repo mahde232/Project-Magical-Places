@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../models/user.model').userModel
 
-const adminCheck = async (req, res, next) => {
+const adminCheckUsers = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const idOfRequestSender = decodedToken._id;
         const requestSenderUser = await userModel.findById(idOfRequestSender);
 
-        if(idOfRequestSender !== req.params.id)
-            if(requestSenderUser.authority === 0)
+        if(idOfRequestSender !== req.params.id) //user sending request isnt the one being deleted/updated
+            if(requestSenderUser.authority === 0) //if not admin, throw error
                 throw new Error()
         next();
     }
@@ -18,4 +18,4 @@ const adminCheck = async (req, res, next) => {
     }
 }
 
-module.exports = adminCheck
+module.exports = adminCheckUsers
