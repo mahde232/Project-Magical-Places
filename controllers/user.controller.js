@@ -1,5 +1,6 @@
 const userModel = require('../models/user.model').userModel;
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
 
 const getAllUsers = (req, res) => {
     userModel.find({}, (err, data) => {
@@ -19,18 +20,16 @@ const getSpecificUser = (req, res) => {
 
 const addNewUser = (req, res) => {
     const { firstName, lastName, email, password } = req.body;
-    userModel.find({ email: { $eq: email } }, async (err, data) => {
+    userModel.findOne({ email: { $eq: email } }, async (err, data) => {
         if (err) return res.status(404).json({ message: err.message })
-        if (data.length === 0) { //didn't find any users with that specific email, therefore user can be added
+        if (!data) { //didn't find any users with that specific email, therefore user can be added
             const user = new userModel({ firstName, lastName, email, password: await (bcrypt.hash(password, 8)) })
             user.save((err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
                 return res.status(200).json(data);
             })
         }
-        else {
-            return res.status(409).json({ message: 'Error, email already in use!' })
-        }
+        else { return res.status(409).json({ message: 'Error, email already in use!' }) }
     })
 }
 
@@ -47,10 +46,9 @@ const updateUser = async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, email, password } = req.body;
     const updatedUser = { firstName, lastName, email, password: password.length > 0 ? await bcrypt.hash(password, 8) : "" }
-
-    userModel.findOne({email}, (err,data)=>{
-        if(err) return res.status(404).json({ message: err.message });
-        if(data && data._id.toString() !== id) return res.status(404).json({ message: 'email already in use' }) //check if someone else already has the email address we want to change to
+    userModel.findOne({ email }, (err, data) => {
+        if (err) return res.status(404).json({ message: err.message });
+        if (data && data._id.toString() !== id) return res.status(404).json({ message: 'email already in use' }) //check if someone else already has the email address we want to change to
         else {
             userModel.findByIdAndUpdate(id, updatedUser, { new: true, runValidators: true }, (err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
@@ -61,10 +59,50 @@ const updateUser = async (req, res) => {
     })
 }
 
+const myProfile = async (req, res) => {
+    return res.status(200).json(req.authenticatedUser)
+}
+
+const handleLogin = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await userModel.findByCredentials(email, password);
+        const generatedToken = await user.generateJWT()
+        const userToSend = user.toObject()
+        delete userToSend.password
+        delete userToSend.__v
+        delete userToSend.authority
+
+        return res.status(200).json({ user: userToSend, token: generatedToken })
+    } catch (e) { return res.status(400).json({ message: e.message }) }
+}
+
+const handleLogout = async (req, res) => {
+    try {
+        req.authenticatedUser.tokens = req.authenticatedUser.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.authenticatedUser.save();
+        res.status(200).json({ message: "Logout successful" })
+    } catch (e) { res.status(500).json({ message: `Error: ${e}` }) }
+}
+
+const handleLogoutAll = async (req, res) => {
+    try {
+        req.authenticatedUser.tokens = []
+        await req.authenticatedUser.save();
+        res.status(200).json({ message: "Logout-from-all successful" })
+    } catch (e) { res.status(500).json({ message: `Error: ${e}` }) }
+}
+
 module.exports = {
     getAllUsers,
     getSpecificUser,
     addNewUser,
     deleteUser,
     updateUser,
+    myProfile,
+    handleLogin,
+    handleLogout,
+    handleLogoutAll,
 }

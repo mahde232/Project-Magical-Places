@@ -3,17 +3,19 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path');
-const os = require('os');
+const mongoose = require('mongoose');
+const fs = require('fs');
+const logRequests = require('./express_middleware/logs')
+const port = 4000;
+
+app.use(logRequests); //middleware to log server requests
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const mongoose = require('mongoose');
-const port = 4000;
 
-app.use('/api/login/', require('./routes/login.route'));
-app.use('/api/users/', require('./routes/users.route'));
+
+app.use('/users/', require('./routes/users.route'));
 // app.use('/api/posts', require('./routes/posts.route'));
-app.get('/api/getUser/', (req, res) => res.send({ username: os.userInfo().username })); //remove this later
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
@@ -24,6 +26,17 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+//handle any other nonexisting requests (after checking in server then client)
+app.get('*', (req, res) => { 
+  res.status(404).json({message: "No such GET request."})
+}).post('*', (req, res) => {
+  res.status(404).json({message: "No such POST request."})
+}).put('*', (req, res) => {
+  res.status(404).json({message: "No such PUT request."})
+}).delete('*', (req, res) => {
+  res.status(404).json({message: "No such DELETE request."})
+})
 
 //mongoose connection
 mongoose.connect(`${process.env.DB_URL}`, { useNewUrlParser: true, useUnifiedTopology: true }, () => { console.log('Connected to DB') });
