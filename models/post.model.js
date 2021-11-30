@@ -6,6 +6,10 @@ const postSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, //userID
         required: true,
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId, //categoryID
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -23,6 +27,10 @@ const postSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, //tagID
         required: false,
     }],
+    region : {
+        type: mongoose.Schema.Types.ObjectId, //regionID
+        required: true,
+    },
     location: { //GeoJSON implementation https://mongoosejs.com/docs/geojson.html
         type: {
             type: String,
