@@ -1,3 +1,4 @@
+//TODO add all postController functions mentioned here
 const express = require('express');
 const postController = require('../controllers/post.controller');
 const authMiddleware = require('../express_middleware/auth');
