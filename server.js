@@ -18,6 +18,7 @@ app.use('/users/', require('./routes/users.route'));
 app.use('/posts/', require('./routes/posts.route'));
 app.use('/tags/', require('./routes/tags.route'));
 app.use('/categories/', require('./routes/categories.route'));
+app.use('/regions/', require('./routes/regions.route'));
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
