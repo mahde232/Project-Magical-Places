@@ -4,7 +4,6 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const fs = require('fs');
 const logRequests = require('./express_middleware/logs')
 const port = 4000;
 
@@ -12,7 +11,6 @@ app.use(logRequests); //middleware to log server requests
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 app.use('/users/', require('./routes/users.route'));
 app.use('/posts/', require('./routes/posts.route'));

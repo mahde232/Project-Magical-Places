@@ -5,10 +5,12 @@ const postSchema = new Schema({
     creator: {
         type: mongoose.Schema.Types.ObjectId, //userID
         required: true,
+        ref: 'users',
     },
     category: {
         type: mongoose.Schema.Types.ObjectId, //categoryID
         required: true,
+        ref: 'categories',
     },
     title: {
         type: String,
@@ -25,11 +27,12 @@ const postSchema = new Schema({
     }],
     tags: [{
         type: mongoose.Schema.Types.ObjectId, //tagID
-        required: false,
+        ref: 'tags',
     }],
     region : {
         type: mongoose.Schema.Types.ObjectId, //regionID
         required: true,
+        ref: 'regions',
     },
     location: { //GeoJSON implementation https://mongoosejs.com/docs/geojson.html
         type: {
@@ -43,6 +46,13 @@ const postSchema = new Schema({
         }
     }
 });
+
+postSchema.methods.toJSON = function () { //hide unwanted information
+    const postObj = this.toObject()
+    delete postObj.__v
+    return postObj
+}
+
 const postModel = mongoose.model('posts', postSchema);
 
 module.exports = {
