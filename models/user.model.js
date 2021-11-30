@@ -44,6 +44,12 @@ const userSchema = new Schema({
     }
 });
 
+userSchema.virtual('posts', {
+    ref: 'posts',
+    localField: '_id',
+    foreignField: 'creator',
+})
+
 userSchema.methods.toJSON = function () { //hide unwanted information from user
     const userObj = this.toObject()
 

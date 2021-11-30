@@ -4,29 +4,32 @@ const getAllPosts = (req, res) => {
     postModel.find({}, (err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
-    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err,posts) => {
-        console.log("exec");
-    });
+    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
 }
+
+// const getSpecificPost = (req, res) => {
+//     const { id } = req.params;
+//     postModel.findById(id, (err, data) => {
+//         if (err) return res.status(404).json(err);
+//         if (!data) return res.status(404).json({ message: 'Post does not exist!' });
+//         return res.status(200).json(data);
+//     }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
+// }
 
 const getSpecificPost = (req, res) => {
     const { id } = req.params;
-    postModel.findById(id, (err, data) => {
+    postModel.findById(id).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
         if (err) return res.status(404).json(err);
         if (!data) return res.status(404).json({ message: 'Post does not exist!' });
         return res.status(200).json(data);
-    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err,posts) => {
-        console.log("exec");
-    });
+    })
 }
 
 const getMyPosts = (req, res) => {
     postModel.find({id: {$eq: req.authenticatedUser._id}}, (err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
-    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err,posts) => {
-        console.log("exec");
-    });
+    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
 }
 
 const createPost = (req, res) => {
