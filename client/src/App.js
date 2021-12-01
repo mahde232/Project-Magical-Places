@@ -1,17 +1,18 @@
 import React from 'react'
-import './App.css';
-import { Route } from 'react-router';
-import User from './components/user.component';
-import { BrowserRouter } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './components/pages/HomePage.component';
+import Login from './components/pages/Login.component';
+import Register from './components/pages/Register.component';
 
 function App() {
-  return (
-    <div>
-      <BrowserRouter>
-        <Route exact path='/' component={User} />
-      </BrowserRouter>
-    </div>
-  );
+  return (<BrowserRouter>
+    <Routes>
+      <Route exact path='/' element={<HomePage />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+    </Routes>
+  </BrowserRouter>);
 }
 
 export default App;
