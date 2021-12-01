@@ -1,13 +1,12 @@
 body {
     background-color: #2E2E2E!important;
+    /* background-color: #F2F2F2; */
+    /* background-color: #019EEF20; */
+    /* background-color: #2E2E2E; */
 }
 #Register {
     display: flex;
     height: 100vh;
-    /* width: 100vw; */
-    /* background-color: #F2F2F2; */
-    /* background-color: #019EEF20; */
-    /* background-color: #2E2E2E; */
 }
 .ui.container {
     margin: auto auto!important;
@@ -30,9 +29,6 @@ body {
 .sub.header {
     margin-top: 2px!important;
 }
-/* img {
-    margin-bottom: 1rem;
-} */
 /* .container .segment .form label{
     color: #E2E2E2!important;
 } */
