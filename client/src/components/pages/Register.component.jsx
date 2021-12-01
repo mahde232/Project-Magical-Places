@@ -35,8 +35,8 @@ const Register = () => {
 
     const handleInput = (e) => {
         console.log(e.target.name);
-        if(e.target.name === 'confirmedPassword' || e.target.name === 'password')
-            setErrors((prevState) => ({ ...prevState, confirmedPassword: false}))
+        if (e.target.name === 'confirmedPassword' || e.target.name === 'password')
+            setErrors((prevState) => ({ ...prevState, confirmedPassword: false }))
         else setErrors((prevState) => ({ ...prevState, [e.target.name]: false }))
         setNewUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     }
@@ -47,7 +47,7 @@ const Register = () => {
             setErrors({ email: true })
             return;
         }
-        if (newUser.password !== newUser.confirmedPassword){
+        if (newUser.password !== newUser.confirmedPassword) {
             setErrors({ confirmedPassword: true })
             return;
         }
@@ -68,25 +68,28 @@ const Register = () => {
 
     return (<div id='Register'><Container>
         <Segment padded='very'>
-            <Image src={image} size='tiny' wrapped/>
             <Form onSubmit={e => handleSubmit(e)}>
-                <Header as='h2' textAlign='center'>Register</Header>
-                <Form.Group widths='equal'>
-                    <Form.Field
-                        control={Input}
-                        label='First name'
-                        name='firstName'
-                        required={true}
-                        onChange={e => handleInput(e)}
-                    />
-                    <Form.Field
-                        control={Input}
-                        label='Last name'
-                        name='lastName'
-                        required={true}
-                        onChange={e => handleInput(e)}
-                    />
+                {/* <Header as='h2' size='huge' textAlign='center'>Sign up<Header.Subheader>Don't worry, it's free</Header.Subheader></Header> */}
+                <Header as='h2' size='huge' textAlign='center'>Sign up<Header.Subheader>“Travel far enough, you meet yourself”</Header.Subheader></Header>
+                <Form.Group>
+                    <Image centered src={image} size='tiny' wrapped />
                 </Form.Group>
+                <Form.Field
+                    fluid
+                    control={Input}
+                    label='First name'
+                    name='firstName'
+                    required={true}
+                    onChange={e => handleInput(e)}
+                />
+                <Form.Field
+                    fluid
+                    control={Input}
+                    label='Last name'
+                    name='lastName'
+                    required={true}
+                    onChange={e => handleInput(e)}
+                />
                 <Form.Field
                     control={Input}
                     label='Email'
