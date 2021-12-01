@@ -34,7 +34,10 @@ const Register = () => {
     }
 
     const handleInput = (e) => {
-        setErrors((prevState) => ({ ...prevState, [e.target.name]: false }))
+        console.log(e.target.name);
+        if(e.target.name === 'confirmedPassword' || e.target.name === 'password')
+            setErrors((prevState) => ({ ...prevState, confirmedPassword: false}))
+        else setErrors((prevState) => ({ ...prevState, [e.target.name]: false }))
         setNewUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     }
 
