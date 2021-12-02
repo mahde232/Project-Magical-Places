@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Container, Form, Header, Input, Segment, Modal, Icon, Button, Image } from 'semantic-ui-react'
 import validator from 'validator'
 import axios from 'axios'
-import './Register.css'
 import { useNavigate } from 'react-router'
 import image from '../../images/logo1.png'
+import 'semantic-ui-css/semantic.min.css'
+import './Register.css'
 
 const Register = () => {
     const navigate = useNavigate();

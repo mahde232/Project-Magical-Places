@@ -1,12 +1,15 @@
-body {
-    background-color: #2E2E2E!important;
-    /* background-color: #F2F2F2; */
-    /* background-color: #019EEF20; */
-    /* background-color: #2E2E2E; */
+html, body {
+    height: 100%;
 }
 #Register {
     display: flex;
     height: 100vh;
+    overflow: auto;
+    background-color: #2E2E2E;
+    /* background-color: #F2F2F2; */
+    /* background-color: #019EEF20; */
+    /* background-color: #2E2E2E; */
+
 }
 .ui.container {
     margin: auto auto!important;

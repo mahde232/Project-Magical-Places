@@ -1,5 +1,4 @@
 import React from 'react'
-import 'semantic-ui-css/semantic.min.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage.component';
 import Login from './components/pages/Login.component';
