@@ -43,9 +43,9 @@ const deleteUser = (req, res) => {
 }
 
 const deleteMe = (req, res) => {
-    const id = jwt.verify(req.token,process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
+    const id = jwt.verify(req.token, process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
     req.params.id = id; //reuse already implemented function
-    return deleteUser(req,res);
+    return deleteUser(req, res);
 }
 
 const updateUser = async (req, res) => {
@@ -66,9 +66,9 @@ const updateUser = async (req, res) => {
 }
 
 const updateMe = (req, res) => {
-    const id = jwt.verify(req.token,process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
+    const id = jwt.verify(req.token, process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
     req.params.id = id; //reuse already implemented function
-    return updateUser(req,res); //body already has what's needed, no need to add
+    return updateUser(req, res); //body already has what's needed, no need to add
 }
 
 const myProfile = async (req, res) => {
@@ -84,7 +84,9 @@ const handleLogin = async (req, res) => {
         delete userToSend.password
         delete userToSend.__v
         delete userToSend.authority
+        delete userToSend.tokens
 
+        res.cookie('token', generatedToken, { httpOnly: true })
         return res.status(200).json({ user: userToSend, token: generatedToken })
     } catch (e) { return res.status(400).json({ message: e.message }) }
 }
@@ -107,6 +109,10 @@ const handleLogoutAll = async (req, res) => {
     } catch (e) { res.status(500).json({ message: `Error: ${e}` }) }
 }
 
+const authUsingToken = async (req, res) => {
+    return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
+}
+
 module.exports = {
     getAllUsers,
     getSpecificUser,
@@ -119,4 +125,5 @@ module.exports = {
     handleLogin,
     handleLogout,
     handleLogoutAll,
+    authUsingToken,
 }

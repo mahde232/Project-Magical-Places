@@ -7,7 +7,7 @@ import image from '../../images/logo1.png'
 import 'semantic-ui-css/semantic.min.css'
 import './Register.css'
 
-const Register = () => {
+const Register = ({loggedInUser}) => {
     const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
         firstName: '',
@@ -65,7 +65,11 @@ const Register = () => {
             })
         }
     }
-
+    
+    if(loggedInUser) {
+        console.log(loggedInUser);
+        navigate('/')
+    }
     return (<div id='Register'><Container>
         <Segment padded='very'>
             <Form onSubmit={e => handleSubmit(e)}>
@@ -118,6 +122,7 @@ const Register = () => {
                     }}
                     required={true}
                     type='password'
+                    autoComplete='new-password'
                     onChange={e => handleInput(e)}
                 />
                 <Form.Button

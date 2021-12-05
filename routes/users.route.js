@@ -22,6 +22,8 @@ router.post('/', async (req, res) => { //CreateNewUser doesn't require auth midd
     await userController.handleLogout(req, res);
 }).post('/logoutAll', authMiddleware, async (req, res) => { //LogoutAll
     await userController.handleLogoutAll(req, res);
+}).post('/token', authMiddleware, async (req, res) => { //re-auth using token
+    await userController.authUsingToken(req, res);
 })
 
 //DELETE requests

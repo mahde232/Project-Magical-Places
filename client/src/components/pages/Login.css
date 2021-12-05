@@ -3,7 +3,8 @@ html, body {
 }
 #Login {
     display: flex;
-    height: 100vh;
+    height: 95vh;
+    width: 100%;
     overflow: auto;
     background-color: #2E2E2E;
 }

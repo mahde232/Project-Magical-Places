@@ -1,15 +1,54 @@
-import React from 'react'
+//TODO: put a universal axios login in app.js to pretend like user is always logged in after refreshes
+//because state is empty after each refresh, so instead of using localstorage, i use an axios login, and if the httpsonly cookie
+//is still valid, the login request will execute correctly, if not, just load the "no-logged-in" user version
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage.component';
 import Login from './components/pages/Login.component';
+import NavBar from './components/pages/NavBar.component';
 import Register from './components/pages/Register.component';
+import axios from 'axios';
+import './App.css'
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null)
+
+  //re-auth function
+  useEffect(() => {
+    const automaticReauth = async () => {
+      try {
+        const response = await axios.post('/users/token')
+        if(response.status === 200){
+          setLoggedInUser(response.data.user)
+        }
+      } catch(err) {
+      }
+    }
+    automaticReauth();
+  }, [])
+
+  const recieveWhoLoggedIn = (userObj) => {
+    setLoggedInUser(userObj);
+  }
+  const recieveLogout = async () => {
+    try {
+      const response = await axios.post('/users/logout');
+      if (response.status === 200) {
+        console.log('logout successful');
+      }
+      setLoggedInUser(null)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
   return (<BrowserRouter>
+    <NavBar loggedInUser={loggedInUser} informLogout={recieveLogout} />
     <Routes>
-      <Route exact path='/' element={<HomePage />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
+      <Route exact path='/' element={<HomePage loggedInUser={loggedInUser} />} />
+      <Route path='/login' element={<Login loggedInUser={loggedInUser} informLogin={recieveWhoLoggedIn} />} />
+      <Route path='/register' element={<Register loggedInUser={loggedInUser} />} />
     </Routes>
   </BrowserRouter>);
 }

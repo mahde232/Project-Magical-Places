@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 const logRequests = require('./express_middleware/logs')
 const port = 4000;
 
@@ -11,6 +12,7 @@ app.use(logRequests); //middleware to log server requests
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/users/', require('./routes/users.route'));
 app.use('/posts/', require('./routes/posts.route'));

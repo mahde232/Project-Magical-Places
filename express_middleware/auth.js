@@ -2,15 +2,16 @@ const jwt = require('jsonwebtoken')
 const userModel = require('../models/user.model').userModel
 const auth = async (req, res, next) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const tokenFromCookie = req.cookies.token;
+        // const tokenFromHeader = req.header('Authorization').replace('Bearer ', '');
+        const decodedToken = jwt.verify(tokenFromCookie, process.env.JWT_SECRET_KEY);
         const user = await userModel.findOne({ 
-            _id: decodedToken._id, 'tokens.token': token 
+            _id: decodedToken._id, 'tokens.token': tokenFromCookie 
         })
         if (!user) {
             throw new Error('No such user found!')
         }
-        req.token = token;
+        req.token = tokenFromCookie;
         req.authenticatedUser = user
         next();
     }
