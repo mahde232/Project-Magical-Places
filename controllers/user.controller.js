@@ -110,7 +110,10 @@ const handleLogoutAll = async (req, res) => {
 }
 
 const authUsingToken = async (req, res) => {
-    return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
+    setTimeout(() => {
+        return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
+    }, 300);
+    // return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
 }
 
 module.exports = {
