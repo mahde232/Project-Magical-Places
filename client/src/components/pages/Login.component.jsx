@@ -73,8 +73,7 @@ const Login = ({ loggedInUser, informLogin }) => {
         <Container>
             <Segment padded='very'>
                 <Form size='large' onSubmit={e => handleSubmit(e)}>
-                    {/* <Header as='h2' size='huge' textAlign='center'>Sign up<Header.Subheader>Don't worry, it's free</Header.Subheader></Header> */}
-                    <Header as='h2' size='huge' textAlign='center'>Login</Header>
+                    <Header as='h2' size='huge' textAlign='center'>Login<Header.Subheader id='subheader'>“A journey of a thousand miles begins with a single step”</Header.Subheader></Header>
                     <Form.Group>
                         <Image centered src={image} size='tiny' wrapped />
                     </Form.Group>

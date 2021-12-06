@@ -11,3 +11,6 @@ html, body {
 .ui.container {
     width: 500px;
 }
+#subheader {
+    margin-top: 3px!important;
+}

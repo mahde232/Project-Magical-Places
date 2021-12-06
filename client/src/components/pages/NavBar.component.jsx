@@ -23,16 +23,16 @@ function NavBar({ loggedInUser, informLogout }) {
             case 'login':
                 navigate('/login');
                 break;
-            // case 'profile':
-            //     navigate('/profile')
-            //     break;
+            case 'profile':
+                navigate('/profile')
+                break;
             default:
                 navigate('/');
         }
     }
 
     return (
-        <Menu inverted fluid>
+        <Menu id='navbar' inverted fluid>
             <Link to='/'>
                 <Menu.Item>
                     <img src={image} alt='logo' />
@@ -48,9 +48,9 @@ function NavBar({ loggedInUser, informLogout }) {
             {loggedInUser ?
                 <>
                     <Menu.Item
-                        // name='Profile'
-                        // active={activeItem === 'profile'}
-                        // onClick={(e) => handleItemClick(e, 'profile')}
+                        name='Profile'
+                        active={activeItem === 'profile'}
+                        onClick={(e) => handleItemClick(e, 'profile')}
                     >
                         Hello, {loggedInUser.firstName}
                     </Menu.Item>

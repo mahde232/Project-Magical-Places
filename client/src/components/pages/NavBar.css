@@ -1,5 +1,5 @@
-.ui.menu {
-    /* margin: 0; */
+#navbar {
+    height: 56px;
     margin-bottom: 0;
     border-radius: 0;
 }

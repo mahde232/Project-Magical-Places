@@ -3,11 +3,12 @@
 //is still valid, the login request will execute correctly, if not, just load the "no-logged-in" user version
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Segment, Loader, Dimmer } from 'semantic-ui-react'
+import { Loader, Dimmer } from 'semantic-ui-react'
 import HomePage from './components/pages/HomePage.component';
 import Login from './components/pages/Login.component';
 import NavBar from './components/pages/NavBar.component';
 import Register from './components/pages/Register.component';
+import Profile from './components/pages/Profile.component';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
@@ -62,6 +63,7 @@ function App() {
       <Route exact path='/' element={<HomePage loggedInUser={loggedInUser} />} />
       <Route path='/login' element={<Login loggedInUser={loggedInUser} informLogin={recieveWhoLoggedIn} />} />
       <Route path='/register' element={<Register loggedInUser={loggedInUser} />} />
+      <Route path='/profile' element={<Profile loggedInUser={loggedInUser} />} />
     </Routes>
   </BrowserRouter>);
 }
