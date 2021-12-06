@@ -1,28 +1,46 @@
 #Profile {
     display: flex;
-    height: 94vh;
+    height: calc(100vh - 51px);
     width: 100%;
     background-color: #2E2E2E;
     /* background-color: #F2F2F2; */
     /* background-color: #019EEF20; */
     /* background-color: #2E2E2E; */
 }
+@media only screen and (max-width: 750px) {
+    #Profile {
+        flex-direction: column;
+        height: 100%;
+    }
+    html::-webkit-scrollbar {
+        display: none;
+    }
+    #information {
+        justify-content: center;
+        margin-top: 3rem;
+        border: 0!important;
+    }
+    #postsArea::-webkit-scrollbar {
+        display: none;
+    }
+    #postsArea > h2 {
+        text-align: center;
+    }
+}
 #information {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10vh 4vw 0;
     border-right: 2px solid #FFFFFF60;
     color: #FFFFFF90;
+    align-items: center;
+    padding: 0 3rem;
 }
 #postsArea {
     display: flex;
     flex-direction: column;
-    /* background-color: red; */
+    height: 100%;
     width: 100%;
-    padding: 5vh 5vw;
-    overflow: auto;
+    padding: 2rem 3rem 0;
+    overflow-y: scroll;
 }
 .feedItemIcon { 
     color: #FFFFFF!important;
@@ -30,11 +48,36 @@
 .post, .comment {
     padding: 5px!important;
     background-color: #242526!important;
-    margin-bottom: 1vh!important;
+    margin-bottom: 1rem!important;
 }
 .postTitleText, .postSummary {
     color: #FFFFFF80!important;
 }
 .postDate {
     color: #FFFFFF40!important;
+}
+
+/* template */
+.single_advisor_profile {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    border-radius: 15px;
+}
+.single_advisor_profile .advisor_thumb {
+    border-radius: 15px 15px 0 0;
+    padding: 20px 20px 0 20px;
+    background-color: #242526;
+    overflow: hidden;
+}
+.single_advisor_profile .single_advisor_details_info {
+    padding: 10px;
+    text-align: center;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    border-radius: 0 0 15px 15px;
+    background-color: #242526;
+}
+.single_advisor_profile:hover .single_advisor_details_info,
+.single_advisor_profile:focus .single_advisor_details_info {
+    background-color: black;
 }
