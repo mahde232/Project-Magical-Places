@@ -45,7 +45,7 @@
 .feedItemIcon { 
     color: #FFFFFF!important;
 }
-.post, .comment {
+.profilePost, .profileComment {
     padding: 5px!important;
     background-color: #242526!important;
     margin-bottom: 1rem!important;
@@ -56,20 +56,27 @@
 .postDate {
     color: #FFFFFF40!important;
 }
+.profileInfoSegment {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    background-color: #2E2E2E!important;
+}
 
 /* template */
-.single_advisor_profile {
+.profile_card {
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
     border-radius: 15px;
 }
-.single_advisor_profile .advisor_thumb {
+.profile_card .profile_thumbnail {
     border-radius: 15px 15px 0 0;
     padding: 20px 20px 0 20px;
     background-color: #242526;
     overflow: hidden;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
 }
-.single_advisor_profile .single_advisor_details_info {
+.profile_card .profile_details {
     padding: 10px;
     text-align: center;
     -webkit-transition-duration: 500ms;
@@ -77,7 +84,11 @@
     border-radius: 0 0 15px 15px;
     background-color: #242526;
 }
-.single_advisor_profile:hover .single_advisor_details_info,
-.single_advisor_profile:focus .single_advisor_details_info {
-    background-color: black;
+.profile_card:hover .profile_details,
+.profile_card:focus .profile_details,
+.profile_card:hover .profile_thumbnail,
+.profile_card:focus .profile_thumbnail,
+.profile_card:hover .profileInfoSegment,
+.profile_card:focus .profileInfoSegment {
+    background-color: black!important;
 }

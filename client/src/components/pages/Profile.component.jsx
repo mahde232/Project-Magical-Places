@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Header, Feed, Icon, Container } from 'semantic-ui-react'
+import { Image, Header, Feed, Icon, Segment, Label } from 'semantic-ui-react'
 import { useNavigate } from 'react-router'
 import 'semantic-ui-css/semantic.min.css'
 import './Profile.css'
@@ -11,12 +11,16 @@ const Profile = ({ loggedInUser }) => {
     }
     return (loggedInUser && <div id='Profile'>
         <div id='information'>
-            <div class="single_advisor_profile">
-                <div class="advisor_thumb">
+            <div class="profile_card">
+                <div class="profile_thumbnail">
                     <Image size='medium' src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F06%2F14%2Fsiberian-husky-puppy-grass-146571433-2000.jpg" alt="" />
                 </div>
-                <div class="single_advisor_details_info">
+                <div class="profile_details">
                     <Header as='h2' inverted>{loggedInUser.firstName} {loggedInUser.lastName}<Header.Subheader>{loggedInUser.email}</Header.Subheader></Header>
+                    <Segment.Group size='mini' horizontal>
+                        <Segment compact className='profileInfoSegment'><Label><Icon fitted name='location arrow' /> Posts:<br/>[1111111]</Label></Segment>
+                        <Segment compact className='profileInfoSegment'><Label><Icon fitted name='comment' /> Comments:<br/>[11111]</Label></Segment>
+                    </Segment.Group>
                 </div>
             </div>
         </div>
@@ -24,7 +28,7 @@ const Profile = ({ loggedInUser }) => {
             <Header as='h2' inverted>My activity:</Header>
             <Feed>
                 {/* Post Example */}
-                <Feed.Event className='post'>
+                <Feed.Event className='profilePost'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='location arrow' size='big' />
                     </Feed.Label>
@@ -47,7 +51,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Comment Example */}
-                <Feed.Event className='comment'>
+                <Feed.Event className='profileComment'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='comment' size='big' />
                     </Feed.Label>
@@ -62,7 +66,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Post Example */}
-                <Feed.Event className='post'>
+                <Feed.Event className='profilePost'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='location arrow' size='big' />
                     </Feed.Label>
@@ -85,7 +89,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Comment Example */}
-                <Feed.Event className='comment'>
+                <Feed.Event className='profileComment'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='comment' size='big' />
                     </Feed.Label>
@@ -100,7 +104,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Post Example */}
-                <Feed.Event className='post'>
+                <Feed.Event className='profilePost'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='location arrow' size='big' />
                     </Feed.Label>
@@ -123,7 +127,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Comment Example */}
-                <Feed.Event className='comment'>
+                <Feed.Event className='profileComment'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='comment' size='big' />
                     </Feed.Label>
@@ -138,7 +142,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Post Example */}
-                <Feed.Event className='post'>
+                <Feed.Event className='profilePost'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='location arrow' size='big' />
                     </Feed.Label>
@@ -161,7 +165,7 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Comment Example */}
-                <Feed.Event className='comment'>
+                <Feed.Event className='profileComment'>
                     <Feed.Label>
                         <Icon className='feedItemIcon' name='comment' size='big' />
                     </Feed.Label>
