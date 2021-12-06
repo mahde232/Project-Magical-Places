@@ -1,20 +1,11 @@
 const postModel = require('../models/post.model').postModel;
 
 const getAllPosts = (req, res) => {
-    postModel.find({}, (err, data) => {
+    postModel.find({}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
-    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
+    })
 }
-
-// const getSpecificPost = (req, res) => {
-//     const { id } = req.params;
-//     postModel.findById(id, (err, data) => {
-//         if (err) return res.status(404).json(err);
-//         if (!data) return res.status(404).json({ message: 'Post does not exist!' });
-//         return res.status(200).json(data);
-//     }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
-// }
 
 const getSpecificPost = (req, res) => {
     const { id } = req.params;
@@ -26,10 +17,10 @@ const getSpecificPost = (req, res) => {
 }
 
 const getMyPosts = (req, res) => {
-    postModel.find({id: {$eq: req.authenticatedUser._id}}, (err, data) => {
+    postModel.find({creator: {$eq: req.authenticatedUser._id}}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
-    }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name')
+    })
 }
 
 const createPost = (req, res) => {
@@ -53,9 +44,9 @@ const deletePost = (req, res) => {
 
 const updatePost = async (req, res) => {
     const { id } = req.params;
-    const { creator, category, title, description, images, tags, region, location } = req.body;
-    const updatedPost = { creator, category, title, description, images, tags, region, location }
-    userModel.findByIdAndUpdate(id, updatedPost, { new: true, runValidators: true }, (err, data) => {
+    const {category, title, description, images, tags, region, location } = req.body;
+    const updatedPost = {category, title, description, images, tags, region, location }
+    postModel.findByIdAndUpdate(id, updatedPost, { new: true, runValidators: true }, (err, data) => {
         if (err) return res.status(404).json({ message: err.message });
         if (!data) return res.status(404).json({ message: 'Post not found' })
         return res.status(201).json(data);

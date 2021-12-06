@@ -5,9 +5,9 @@ const adminCheck = require('../express_middleware/adminCheck');
 const router = express.Router();
 
 //GET requests (no need for admin checks)
-router.get('/', authMiddleware, (req, res) => { //Get all categories
+router.get('/', (req, res) => { //Get all categories
     categoryController.getAllCategories(req, res);
-}).get('/id=:id', authMiddleware, (req, res) => { //Get category by id
+}).get('/id=:id', (req, res) => { //Get category by id
     categoryController.getCategoryByID(req, res);
 })
 

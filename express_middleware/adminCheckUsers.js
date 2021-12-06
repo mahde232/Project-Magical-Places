@@ -3,8 +3,9 @@ const userModel = require('../models/user.model').userModel
 
 const adminCheckUsers = async (req, res, next) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const tokenFromCookie = req.cookies.token;
+        // const token = req.header('Authorization').replace('Bearer ', '');
+        const decodedToken = jwt.verify(tokenFromCookie, process.env.JWT_SECRET_KEY);
         const idOfRequestSender = decodedToken._id;
         const requestSenderUser = await userModel.findById(idOfRequestSender);
 

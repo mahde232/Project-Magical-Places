@@ -40,8 +40,8 @@ const userSchema = new Schema({
     authority: {
         type: Number, //0=user, 1=moderator, 2=admin
         required: true,
-        default: 0
-    }
+        default: 0,
+    },
 });
 
 userSchema.virtual('posts', {
@@ -49,6 +49,12 @@ userSchema.virtual('posts', {
     localField: '_id',
     foreignField: 'creator',
 })
+
+// userSchema.virtual('comments', {
+//     ref: 'comments',
+//     localField: '_id',
+//     foreignField: 'creator',
+// })
 
 userSchema.methods.toJSON = function () { //hide unwanted information from user
     const userObj = this.toObject()
@@ -90,6 +96,8 @@ userSchema.statics.findByCredentials = async (email, password) => {
 //     next();
 // })
 
+userSchema.set('toObject',{virtuals: true});
+userSchema.set('toJSON',{virtuals: true});
 const userModel = mongoose.model('users', userSchema);
 
 module.exports = {

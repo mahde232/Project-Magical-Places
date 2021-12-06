@@ -5,9 +5,9 @@ const adminCheck = require('../express_middleware/adminCheck');
 const router = express.Router();
 
 //GET requests (no need for admin checks)
-router.get('/', authMiddleware, (req, res) => { //Get all tags
+router.get('/', (req, res) => { //Get all tags
     tagController.getAllTags(req, res);
-}).get('/id=:id', authMiddleware, (req, res) => { //Get tag by id
+}).get('/id=:id', (req, res) => { //Get tag by id
     tagController.getTagByID(req, res);
 })
 

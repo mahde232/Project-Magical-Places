@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
 const getAllUsers = (req, res) => {
-    userModel.find({}, (err, data) => {
+    userModel.find({}).populate('posts').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
     })
@@ -11,7 +11,7 @@ const getAllUsers = (req, res) => {
 
 const getSpecificUser = (req, res) => {
     const { id } = req.params;
-    userModel.findById(id, (err, data) => {
+    userModel.findById(id).populate('posts').exec((err, data) => {
         if (err) return res.status(404).json(err);
         if (!data) return res.status(404).json({ message: 'User does not exist!' });
         return res.status(200).json(data);
@@ -51,7 +51,10 @@ const deleteMe = (req, res) => {
 const updateUser = async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, email, password } = req.body;
-    const updatedUser = { firstName, lastName, email, password: password ? await bcrypt.hash(password, 8) : "" }
+    let updatedUser = { firstName, lastName, email }
+    if (password) {
+        updatedUser['password'] = await bcrypt.hash(password, 8);
+    }
     userModel.findOne({ email }, (err, data) => {
         if (err) return res.status(404).json({ message: err.message });
         if (data && data._id.toString() !== id) return res.status(404).json({ message: 'email already in use' }) //check if someone else already has the email address we want to change to
@@ -65,10 +68,10 @@ const updateUser = async (req, res) => {
     })
 }
 
-const updateMe = (req, res) => {
+const updateMe = async (req, res) => {
     const id = jwt.verify(req.token, process.env.JWT_SECRET_KEY)._id; //get id from token of authenticated user.
     req.params.id = id; //reuse already implemented function
-    return updateUser(req, res); //body already has what's needed, no need to add
+    return await updateUser(req, res); //body already has what's needed, no need to add
 }
 
 const myProfile = async (req, res) => {
@@ -111,7 +114,7 @@ const handleLogoutAll = async (req, res) => {
 
 const authUsingToken = async (req, res) => {
     setTimeout(() => {
-        return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
+        return res.status(200).json({ user: req.authenticatedUser, token: req.token })
     }, 300);
     // return res.status(200).json({user: req.authenticatedUser, token: req.token}) 
 }

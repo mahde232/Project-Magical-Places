@@ -5,9 +5,9 @@ const adminCheckUsers = require('../express_middleware/adminCheckUsers')
 const router = express.Router();
 
 //GET requests
-router.get('/', authMiddleware, (req, res) => { //GetAllUsers
+router.get('/', (req, res) => { //GetAllUsers
     userController.getAllUsers(req, res);
-}).get('/?id=:id', authMiddleware, (req, res) => { //GetSpecificUser
+}).get('/?id=:id', (req, res) => { //GetSpecificUser
     userController.getSpecificUser(req, res);
 }).get('/profile', authMiddleware, (req, res) => { //get auth'd user profile
     userController.myProfile(req, res);

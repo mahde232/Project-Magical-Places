@@ -16,6 +16,7 @@ app.use(cookieParser());
 
 app.use('/users/', require('./routes/users.route'));
 app.use('/posts/', require('./routes/posts.route'));
+app.use('/comments/', require('./routes/comments.route'));
 app.use('/tags/', require('./routes/tags.route'));
 app.use('/categories/', require('./routes/categories.route'));
 app.use('/regions/', require('./routes/regions.route'));
