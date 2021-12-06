@@ -50,11 +50,11 @@ userSchema.virtual('posts', {
     foreignField: 'creator',
 })
 
-// userSchema.virtual('comments', {
-//     ref: 'comments',
-//     localField: '_id',
-//     foreignField: 'creator',
-// })
+userSchema.virtual('comments', {
+    ref: 'comments',
+    localField: '_id',
+    foreignField: 'creator',
+})
 
 userSchema.methods.toJSON = function () { //hide unwanted information from user
     const userObj = this.toObject()
@@ -63,6 +63,7 @@ userSchema.methods.toJSON = function () { //hide unwanted information from user
     delete userObj.__v
     delete userObj.authority
     delete userObj.tokens
+    delete userObj.id
 
     return userObj
 }

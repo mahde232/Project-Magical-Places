@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
 const getAllUsers = (req, res) => {
-    userModel.find({}).populate('posts').exec((err, data) => {
+    userModel.find({}).populate('posts').populate('comments').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
     })
@@ -11,7 +11,7 @@ const getAllUsers = (req, res) => {
 
 const getSpecificUser = (req, res) => {
     const { id } = req.params;
-    userModel.findById(id).populate('posts').exec((err, data) => {
+    userModel.findById(id).populate('posts').populate('comments').exec((err, data) => {
         if (err) return res.status(404).json(err);
         if (!data) return res.status(404).json({ message: 'User does not exist!' });
         return res.status(200).json(data);
