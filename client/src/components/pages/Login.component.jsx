@@ -1,4 +1,3 @@
-//TODO: implement jwt tokens
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Header, Input, Segment, Modal, Icon, Button, Image } from 'semantic-ui-react'
 import validator from 'validator'
