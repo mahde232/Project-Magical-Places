@@ -24,7 +24,7 @@ const createRegion = (req, res) => {
             const region = new regionModel({ name })
             region.save((err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
-                return res.status(200).json(data);
+                return res.status(201).json(data);
             })
         }
         else { return res.status(409).json({ message: 'Error, region exists!' }) }
@@ -51,7 +51,7 @@ const updateRegion = async (req, res) => {
             regionModel.findByIdAndUpdate(id, updatedRegion, { new: true, runValidators: true }, (err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
                 if (!data) return res.status(404).json({ message: 'Region not found' })
-                return res.status(201).json(data);
+                return res.status(200).json(data);
             })
         }
     })

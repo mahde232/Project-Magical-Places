@@ -29,7 +29,7 @@ const createPost = (req, res) => {
     const post = new postModel({ creator, category, title, description, images, tags, region, location })
     post.save((err, data) => {
         if (err) return res.status(404).json({ message: err.message });
-        return res.status(200).json(data);
+        return res.status(201).json(data);
     })
 }
 
@@ -49,7 +49,7 @@ const updatePost = async (req, res) => {
     postModel.findByIdAndUpdate(id, updatedPost, { new: true, runValidators: true }, (err, data) => {
         if (err) return res.status(404).json({ message: err.message });
         if (!data) return res.status(404).json({ message: 'Post not found' })
-        return res.status(201).json(data);
+        return res.status(200).json(data);
     })
 }
 

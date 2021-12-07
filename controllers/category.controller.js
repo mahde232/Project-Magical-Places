@@ -24,7 +24,7 @@ const createCategory = (req, res) => {
             const category = new categoryModel({ name })
             category.save((err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
-                return res.status(200).json(data);
+                return res.status(201).json(data);
             })
         }
         else { return res.status(409).json({ message: 'Error, category exists!' }) }
@@ -51,7 +51,7 @@ const updateCategory = async (req, res) => {
             categoryModel.findByIdAndUpdate(id, updatedCategory, { new: true, runValidators: true }, (err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
                 if (!data) return res.status(404).json({ message: 'Category not found' })
-                return res.status(201).json(data);
+                return res.status(200).json(data);
             })
         }
     })

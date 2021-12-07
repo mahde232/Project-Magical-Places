@@ -26,7 +26,7 @@ const addNewUser = (req, res) => {
             const user = new userModel({ firstName, lastName, email, password: await (bcrypt.hash(password, 8)) })
             user.save((err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
-                return res.status(200).json(data);
+                return res.status(201).json(data);
             })
         }
         else { return res.status(409).json({ message: 'Error, email already in use!' }) }
@@ -62,7 +62,7 @@ const updateUser = async (req, res) => {
             userModel.findByIdAndUpdate(id, updatedUser, { new: true, runValidators: true }, (err, data) => {
                 if (err) return res.status(404).json({ message: err.message });
                 if (!data) return res.status(404).json({ message: 'User not found' })
-                return res.status(201).json(data);
+                return res.status(200).json(data);
             })
         }
     })
