@@ -29,7 +29,7 @@ const postSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, //tagID
         ref: 'tags',
     }],
-    region : {
+    region: {
         type: mongoose.Schema.Types.ObjectId, //regionID
         required: true,
         ref: 'regions',
@@ -47,12 +47,20 @@ const postSchema = new Schema({
     }
 });
 
+postSchema.virtual('comments', {
+    ref: 'comments',
+    localField: '_id',
+    foreignField: 'post',
+})
+
 postSchema.methods.toJSON = function () { //hide unwanted information
     const postObj = this.toObject()
     delete postObj.__v
     return postObj
 }
 
+postSchema.set('toObject', { virtuals: true });
+postSchema.set('toJSON', { virtuals: true });
 const postModel = mongoose.model('posts', postSchema);
 
 module.exports = {

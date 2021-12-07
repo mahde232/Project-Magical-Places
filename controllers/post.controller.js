@@ -1,7 +1,7 @@
 const postModel = require('../models/post.model').postModel;
 
 const getAllPosts = (req, res) => {
-    postModel.find({}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
+    postModel.find({}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').populate('comments', 'creator post text createdAt').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
     })
@@ -9,7 +9,7 @@ const getAllPosts = (req, res) => {
 
 const getSpecificPost = (req, res) => {
     const { id } = req.params;
-    postModel.findById(id).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
+    postModel.findById(id).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').populate('comments', 'creator post text createdAt').exec((err, data) => {
         if (err) return res.status(404).json(err);
         if (!data) return res.status(404).json({ message: 'Post does not exist!' });
         return res.status(200).json(data);
@@ -17,7 +17,7 @@ const getSpecificPost = (req, res) => {
 }
 
 const getMyPosts = (req, res) => {
-    postModel.find({creator: {$eq: req.authenticatedUser._id}}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').exec((err, data) => {
+    postModel.find({creator: {$eq: req.authenticatedUser._id}}).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').populate('comments', 'creator post text createdAt').exec((err, data) => {
         if (err) return res.status(404).json(err);
         return res.status(200).json(data);
     })
