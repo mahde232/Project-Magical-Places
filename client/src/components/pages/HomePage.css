@@ -2,6 +2,48 @@ html, body {
     height: 100%;
 }
 #HomePage {
-    background-color: white;
     width: 100%;
+    /* height: calc(100% - 51px); */
+    background-color: #2E2E2E;
+}
+#header-title {
+    font-family: Jaquel;
+    font-size: 48px;
+}
+#recommendations {
+    display: flex;
+    flex-direction: column;
+}
+#innerGridContainer {
+    background: url(../../images/Background.jpg) no-repeat center center/cover;
+}
+.categoriesFlex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px 10px;
+}
+.categoryDiv {
+    color:#ffffffdd;
+    border: 4px solid #ffffff3a;
+    background-color: #00000088;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
+    min-height: 100px;
+    min-width: 100px;
+    line-height: 28px;
+    transition: 0.5s ease-in;
+}
+.categoryDiv:hover {
+    color: black;
+    background-color: #ffffff80;
+    border: 8px solid #1D1E2260;
 }

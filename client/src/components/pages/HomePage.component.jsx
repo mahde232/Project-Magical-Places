@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
-import { Container, Grid, GridRow, Image, Search, Segment } from 'semantic-ui-react'
+import { Container, Grid, Header, Image, Search } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import '../../fonts/stylesheet.css'
 import './HomePage.css'
 // import banner from '../../images/banner-big.png'
-import banner from '../../images/banner-small.png'
+import banner from '../../images/logo1.png'
 
 let dataSource = [];
 const initialState = {
@@ -69,43 +72,111 @@ const HomePage = ({ loggedInUser }) => {
     }, [])
 
     return (<div id='HomePage'>
-        <Container>
+        <Container fluid>
             <Grid container textAlign='center'>
-                <Grid.Row as='h1'>
+                <Grid.Row>
                     <Link to='/'>
-                    <Image src={banner} alt='Magical Places' />
+                        <Header id='header-title' inverted as='h1'>Magical Places</Header>
+                        {/* <Image centered src={banner} alt='Magical Places'/> */}
                     </Link>
                 </Grid.Row>
-                <Grid.Row>Search for places</Grid.Row>
-                <Grid.Row stretched>
-                    <Search
-                        size='big'
-                        loading={loading}
-                        onResultSelect={(e, data) => {
-                            dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
-                            navigate(`/post/${data.result._id}`)
-                        }}
-                        onSearchChange={handleSearchChange}
-                        results={results}
-                        value={value}
-                    />
+                <Grid.Row id='innerGridContainer'>
+                    <Grid container textAlign='center'>
+                        <Grid.Row><Header inverted>Where to?</Header></Grid.Row>
+                        <Grid.Row stretched>
+                            <Search
+                                size='big'
+                                loading={loading}
+                                onResultSelect={(e, data) => {
+                                    dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
+                                    navigate(`/post/${data.result._id}`)
+                                }}
+                                onSearchChange={handleSearchChange}
+                                results={results}
+                                value={value}
+                            />
+                        </Grid.Row>
+                        <Grid.Row><Header inverted>Explore Categories</Header></Grid.Row>
+                        <Grid.Row centered stretched>
+                            <div className='categoriesFlex'>
+                                <Link to='/category/61b0e1509fe252c47f0b88c2'>
+                                    <div className='categoryDiv'>
+                                        <i class="fas fa-hiking fa-2x"></i>
+                                        <strong>Hiking</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e1e89fe252c47f0b8907'>
+                                    <div className='categoryDiv'>
+                                        <i class="fas fa-snowboarding fa-2x"></i>
+                                        <strong>Attractions</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e1559fe252c47f0b88cb'>
+                                    <div className='categoryDiv'>
+                                        <i class="fas fa-water fa-2x"></i>
+                                        <strong>Rivers</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61a627ae6b78aaf2db3e0f56'>
+                                    <div className='categoryDiv'>
+                                        <i className="fab fa-canadian-maple-leaf fa-2x"></i>
+                                        <strong>Parks</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e1779fe252c47f0b88d4'>
+                                    <div className='categoryDiv'>
+                                        <i className="fas fa-tree fa-2x"></i>
+                                        <strong>Forests</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e17a9fe252c47f0b88dd'>
+                                    <div className='categoryDiv'>
+                                        <i className="fas fa-binoculars fa-2x"></i>
+                                        <strong>Lookouts</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e17d9fe252c47f0b88e6'>
+                                    <div className='categoryDiv'>
+                                        <i className="fas fa-umbrella-beach fa-2x"></i>
+                                        <strong>Beaches</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e1829fe252c47f0b88ef'>
+                                    <div className='categoryDiv'>
+                                        <i className="fas fa-gopuram fa-2x"></i>
+                                        <strong>Ruins</strong>
+                                    </div>
+                                </Link>
+                                <Link to='/category/61b0e1949fe252c47f0b88f8'>
+                                    <div className='categoryDiv'>
+                                        <i className="fab fas fa-praying-hands fa-2x"></i>
+                                        <strong>Religious</strong>
+                                    </div>
+                                </Link>
+                            </div>
+                        </Grid.Row>
+                    </Grid>
                 </Grid.Row>
-                <Grid.Row>Or browse popular categories</Grid.Row>
-                <Grid.Row centered stretched>
-                    <Image.Group size='tiny'>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                    </Image.Group>
-                </Grid.Row>
-                <Grid.Row>
-                    Recommendations: (pictures carousel)
+                <Grid.Row centered>
+                    {/* <div id='recommendations'> */}
+                    <Container fluid>
+                        <Header inverted>Recommendations</Header>
+                        <Carousel ariaLabel='Recommendations' autoPlay='true' infiniteLoop='true' dynamicHeight='true' centerMode='true'>
+                            <div>
+                                <Link to='/test/'><Image src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                            </div>
+                            <div>
+                                <Link to='/test/'><Image src='https://wallpaperaccess.com/full/141940.jpg' /></Link>
+                            </div>
+                            <div>
+                                <Link to='/test/'><Image size='small' src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                            </div>
+                            <div>
+                                <Link to='/test/'><Image size='small' src='https://wallpaperaccess.com/full/141940.jpg' /></Link>
+                            </div>
+                        </Carousel>
+                    </Container>
+                    {/* </div> */}
                 </Grid.Row>
                 <Grid.Row>
                     test

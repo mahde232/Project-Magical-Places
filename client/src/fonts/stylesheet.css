@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-HeavyItalic.eot');
+    src: url('Jaquel-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-HeavyItalic.woff2') format('woff2'),
+        url('Jaquel-HeavyItalic.woff') format('woff'),
+        url('Jaquel-HeavyItalic.ttf') format('truetype'),
+        url('Jaquel-HeavyItalic.svg#Jaquel-HeavyItalic') format('svg');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-Regular.eot');
+    src: url('Jaquel-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-Regular.woff2') format('woff2'),
+        url('Jaquel-Regular.woff') format('woff'),
+        url('Jaquel-Regular.ttf') format('truetype'),
+        url('Jaquel-Regular.svg#Jaquel-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-BoldItalic.eot');
+    src: url('Jaquel-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-BoldItalic.woff2') format('woff2'),
+        url('Jaquel-BoldItalic.woff') format('woff'),
+        url('Jaquel-BoldItalic.ttf') format('truetype'),
+        url('Jaquel-BoldItalic.svg#Jaquel-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-Light.eot');
+    src: url('Jaquel-Light.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-Light.woff2') format('woff2'),
+        url('Jaquel-Light.woff') format('woff'),
+        url('Jaquel-Light.ttf') format('truetype'),
+        url('Jaquel-Light.svg#Jaquel-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-Heavy.eot');
+    src: url('Jaquel-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-Heavy.woff2') format('woff2'),
+        url('Jaquel-Heavy.woff') format('woff'),
+        url('Jaquel-Heavy.ttf') format('truetype'),
+        url('Jaquel-Heavy.svg#Jaquel-Heavy') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-Italic.eot');
+    src: url('Jaquel-Italic.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-Italic.woff2') format('woff2'),
+        url('Jaquel-Italic.woff') format('woff'),
+        url('Jaquel-Italic.ttf') format('truetype'),
+        url('Jaquel-Italic.svg#Jaquel-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-LightItalic.eot');
+    src: url('Jaquel-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-LightItalic.woff2') format('woff2'),
+        url('Jaquel-LightItalic.woff') format('woff'),
+        url('Jaquel-LightItalic.ttf') format('truetype'),
+        url('Jaquel-LightItalic.svg#Jaquel-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Jaquel';
+    src: url('Jaquel-Bold.eot');
+    src: url('Jaquel-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Jaquel-Bold.woff2') format('woff2'),
+        url('Jaquel-Bold.woff') format('woff'),
+        url('Jaquel-Bold.ttf') format('truetype'),
+        url('Jaquel-Bold.svg#Jaquel-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
