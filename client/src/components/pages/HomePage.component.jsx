@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
-import { Container, Header, Grid, Image, Search } from 'semantic-ui-react'
+import { Container, Grid, GridRow, Image, Search, Segment } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import './HomePage.css'
 // import banner from '../../images/banner-big.png'
@@ -69,13 +70,16 @@ const HomePage = ({ loggedInUser }) => {
 
     return (<div id='HomePage'>
         <Container>
-            <Grid divided='vertically' container textAlign='center'>
+            <Grid container textAlign='center'>
                 <Grid.Row as='h1'>
-                    <Image href='/' src={banner} alt='Magical Places' />
+                    <Link to='/'>
+                    <Image src={banner} alt='Magical Places' />
+                    </Link>
                 </Grid.Row>
-                {/* Search Bar */}
-                <Grid.Row>
+                <Grid.Row>Search for places</Grid.Row>
+                <Grid.Row stretched>
                     <Search
+                        size='big'
                         loading={loading}
                         onResultSelect={(e, data) => {
                             dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
@@ -85,6 +89,26 @@ const HomePage = ({ loggedInUser }) => {
                         results={results}
                         value={value}
                     />
+                </Grid.Row>
+                <Grid.Row>Or browse popular categories</Grid.Row>
+                <Grid.Row centered stretched>
+                    <Image.Group size='tiny'>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                        <Link to='/test/'><Image spaced src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
+                    </Image.Group>
+                </Grid.Row>
+                <Grid.Row>
+                    Recommendations: (pictures carousel)
+                </Grid.Row>
+                <Grid.Row>
+                    test
                 </Grid.Row>
             </Grid>
         </Container>
