@@ -10,7 +10,7 @@ import { Carousel } from 'react-responsive-carousel';
 import '../../fonts/stylesheet.css'
 import './HomePage.css'
 // import banner from '../../images/banner-big.png'
-import banner from '../../images/logo1.png'
+// import banner from '../../images/logo1.png'
 
 let dataSource = [];
 const initialState = {
@@ -96,7 +96,7 @@ const HomePage = ({ loggedInUser }) => {
                                 value={value}
                             />
                         </Grid.Row>
-                        <Grid.Row><Header inverted>Explore Categories</Header></Grid.Row>
+                        <Grid.Row><Header inverted>Explore Popular Categories</Header></Grid.Row>
                         <Grid.Row centered stretched>
                             <div className='categoriesFlex'>
                                 <Link to='/category/61b0e1509fe252c47f0b88c2'>

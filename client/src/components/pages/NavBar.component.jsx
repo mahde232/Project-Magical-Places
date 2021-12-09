@@ -11,7 +11,7 @@ function NavBar({ loggedInUser, informLogout }) {
     const [activeItem, setActiveItem] = useState('homepage')
     useEffect(() => {
         setActiveItem(location.pathname.split('/')[1])
-    },[location.pathname])
+    }, [location.pathname])
     const handleItemClick = (e, name) => {
         switch (name) {
             case 'homepage':
@@ -26,13 +26,16 @@ function NavBar({ loggedInUser, informLogout }) {
             case 'profile':
                 navigate('/profile')
                 break;
+            case 'createpost':
+                navigate('/createpost')
+                break;
             default:
                 navigate('/');
         }
     }
 
     return (
-        <Menu id='navbar' inverted fluid>
+        <Menu id='navbar' inverted fluid compact>
             <Link to='/'>
                 <Menu.Item>
                     <img src={image} alt='logo' />
@@ -51,14 +54,15 @@ function NavBar({ loggedInUser, informLogout }) {
                         name='Profile'
                         active={activeItem === 'profile'}
                         onClick={(e) => handleItemClick(e, 'profile')}
-                    >
-                        Hello, {loggedInUser.firstName}
+                    >Hello, {loggedInUser.firstName}
                     </Menu.Item>
                     <Menu.Item
-                        onClick={informLogout}
-                    >
-                        Logout
+                        name='Add Post'
+                        active={activeItem === 'createpost'}
+                        onClick={(e) => handleItemClick(e, 'createpost')}
+                    >Add Location
                     </Menu.Item>
+                    <Menu.Item onClick={informLogout}>Logout</Menu.Item>
                 </>
                 :
                 <>
