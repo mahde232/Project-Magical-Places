@@ -44,8 +44,8 @@ const Post = () => {
             <div id='postContainer'>
                 <div id='headerDiv'>
                     <Segment inverted>
-                        <Header inverted as='h2' textAlign='center'>
-                            {postDetails.title} <Header.Subheader>Created by: {postDetails.creator.firstName} {postDetails.creator.lastName}</Header.Subheader>
+                        <Header id='headerText' inverted as='h2' textAlign='center'>
+                            {postDetails.title} <Header.Subheader>By:</Header.Subheader> <Header.Subheader> {postDetails.creator.firstName} {postDetails.creator.lastName}</Header.Subheader>
                         </Header>
                     </Segment>
                 </div>
@@ -58,24 +58,21 @@ const Post = () => {
                         })}
                     </Carousel>
                 </div>
+
                 <div id='descAndTags'>
-                    <Segment id='desc'>
-                        <Header>About: </Header>
+                    <div id='desc'>
+                        <Header as='h2' inverted>Description: </Header>
                         <div id='descText'>
                             {postDetails.description}
                         </div>
-                    </Segment>
-                    <div id='tags'>
-                        <Segment textAlign='center' padded='very'>
-                            <Label.Group>
-                                {postDetails.tags.map(tag => {
-                                    return <Label><img src={tag.icon} /> <strong>{tag.name}</strong></Label>
-                                })}
-                                {postDetails.tags.map(tag => {
-                                    return <Label><img src={tag.icon} /> <strong>{tag.name}</strong></Label>
-                                })}
-                            </Label.Group>
-                        </Segment>
+                    </div>
+                    <div id='tagsContainer'>
+                        <Header as='h2' inverted>Tags:</Header>
+                        <Label.Group>
+                            {postDetails.tags.map(tag => {
+                                return <Label className='myTag' horizontal><img src={tag.icon} /> <strong>{tag.name}</strong></Label>
+                            })}
+                        </Label.Group>
                     </div>
                 </div>
                 <div id='mapDiv'>
@@ -84,7 +81,7 @@ const Post = () => {
                             center={{ lat: postDetails.location.lat, lng: postDetails.location.lng }}
                             mapContainerStyle={{
                                 width: '100%',
-                                height: '400px'
+                                height: '100%'
                             }}
                             zoom={10}
                             onLoad={onLoad}

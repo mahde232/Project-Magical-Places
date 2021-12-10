@@ -1,7 +1,10 @@
+html, body {
+    height: 100%;
+}
 #Post {
     display: flex;
     justify-content: center;
-    height: calc(100vh - 51px);
+    min-height: calc(100vh - 51px);
     width: 100%;
     background-color: #2E2E2E;
     padding: 50px 0;
@@ -14,10 +17,12 @@
 #headerDiv, #carouselDiv, #descAndTags {
     margin-bottom: 20px;
 }
+#headerText {
+    font-size: 40px;
+}
 #descAndTags {
     display: flex;
     width: 100%;
-    /* height: 30vh; */
     justify-content: space-between;
 }
 #desc {
@@ -26,7 +31,41 @@
     align-items: flex-start;
     width: 68.5%;
     height: 100%;
+    background-color: #1B1C1D;
+    padding: 1rem 2rem;
+    border-radius: 5px;
 }
-#tags {
+#descText {
+    color: white;
+    font-size: 1.2rem;
+}
+#tagsContainer {
+    display: flex;
+    flex-direction: column;
     width: 30%;
+    background-color: #1B1C1D;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+}
+.myTag {
+    margin-bottom: 5px!important;
+}
+#mapDiv {
+    height: 50vh;
+    width: 100%;
+}
+@media only screen and (max-width: 1200px) {
+    #descAndTags {
+        flex-direction: column;
+    }
+    #desc {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #tagsContainer {
+        width: 100%;
+    }
+    #mapDiv {
+        height: 80vh;
+    }
 }
