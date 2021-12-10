@@ -1,8 +1,20 @@
 const express = require('express');
+const multer = require('multer')
+const upload = multer({
+    limits: {
+        fileSize: 1000000 //1mb
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpeg|jpg|png)$/))
+            return cb(new Error('file must be in JPEG JPG PNG formats'))
+        cb(undefined, true)
+    }
+})
 const postController = require('../controllers/post.controller');
 const authMiddleware = require('../express_middleware/auth');
 const adminCheckPosts = require('../express_middleware/adminCheckPosts')
 const router = express.Router();
+
 
 //GET requests
 router.get('/', (req, res) => { //Get All Posts (multiple results)
@@ -32,6 +44,11 @@ router.delete('/id=:id', authMiddleware, adminCheckPosts, (req, res) => { //dele
 //PUT requests
 router.put('/id=:id', authMiddleware, adminCheckPosts, (req, res) => { //edit post by id
     postController.updatePost(req, res);
+})
+router.put('/images/id=:id', authMiddleware, adminCheckPosts, upload.array('images', 8), (req, res) => { //add images to  post by id
+    postController.addImagesToPost(req, res);
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
 })
 
 module.exports = router;

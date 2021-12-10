@@ -1,16 +1,13 @@
 html, body {
     height: 100%;
 }
-#Login {
+#AddLocation {
     display: flex;
     height: calc(100vh - 51px);
     width: 100%;
     overflow: auto;
     background-color: #2E2E2E;
 }
-.ui.container {
-    width: 500px;
-}
-#subheader {
-    margin-top: 3px!important;
+#submitBtn {
+    margin-top: 20px;
 }

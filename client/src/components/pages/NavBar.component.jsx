@@ -26,8 +26,8 @@ function NavBar({ loggedInUser, informLogout }) {
             case 'profile':
                 navigate('/profile')
                 break;
-            case 'createpost':
-                navigate('/createpost')
+            case 'addlocation':
+                navigate('/addlocation')
                 break;
             default:
                 navigate('/');
@@ -57,9 +57,9 @@ function NavBar({ loggedInUser, informLogout }) {
                     >Hello, {loggedInUser.firstName}
                     </Menu.Item>
                     <Menu.Item
-                        name='Add Post'
-                        active={activeItem === 'createpost'}
-                        onClick={(e) => handleItemClick(e, 'createpost')}
+                        name='Add Location'
+                        active={activeItem === 'addlocation'}
+                        onClick={(e) => handleItemClick(e, 'addlocation')}
                     >Add Location
                     </Menu.Item>
                     <Menu.Item onClick={informLogout}>Logout</Menu.Item>

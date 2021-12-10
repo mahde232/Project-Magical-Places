@@ -53,7 +53,7 @@ const Register = ({loggedInUser}) => {
         }
         try {
             const response = await axios.post('/users/', newUser);
-            if (response.status === 200)
+            if (response.status === 201)
                 setSuccessModalState({
                     isOpen: true
                 })

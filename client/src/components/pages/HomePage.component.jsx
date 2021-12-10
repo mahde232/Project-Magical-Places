@@ -161,7 +161,7 @@ const HomePage = ({ loggedInUser }) => {
                     {/* <div id='recommendations'> */}
                     <Container fluid>
                         <Header inverted>Recommendations</Header>
-                        <Carousel ariaLabel='Recommendations' autoPlay='true' infiniteLoop='true' dynamicHeight='true' centerMode='true'>
+                        <Carousel showThumbs={false} ariaLabel='Recommendations' autoPlay={true} infiniteLoop={true} dynamicHeight={true} centerMode={true}>
                             <div>
                                 <Link to='/test/'><Image src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
                             </div>

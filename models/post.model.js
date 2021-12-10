@@ -22,8 +22,7 @@ const postSchema = new Schema({
         required: true,
     },
     images: [{
-        data: Buffer,
-        contentType: String
+        type: Buffer
     }],
     tags: [{
         type: mongoose.Schema.Types.ObjectId, //tagID
@@ -44,6 +43,10 @@ const postSchema = new Schema({
             type: [Number],
             required: true
         }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

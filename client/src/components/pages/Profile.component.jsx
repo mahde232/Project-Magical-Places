@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader } from 'semantic-ui-react'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 import './Profile.css'
 
@@ -22,10 +23,14 @@ const Profile = ({ loggedInUser }) => {
         getProfileData();
     }, [])
 
+    useEffect(() => {
+        console.log(userInformationFromDB);
+    }, [userInformationFromDB])
+
     if (!loggedInUser || !userInformationFromDB) {
         navigate('/')
     }
-    return (userInformationFromDB &&  <div id='Profile'>
+    return (userInformationFromDB && <div id='Profile'>
         <div id='information'>
             <div className="profile_card">
                 <div className="profile_thumbnail">
@@ -44,28 +49,36 @@ const Profile = ({ loggedInUser }) => {
             <Header as='h2' inverted>My activity:</Header>
             <Feed>
                 {/* Post Example */}
-                <Feed.Event className='profilePost'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='location arrow' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a post: <a>[POST DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia voluptas perspiciatis excepturi alias aliquam nemo soluta et natus maiores. Velit dicta cupiditate aliquam perspiciatis provident, blanditiis praesentium non. Modi, ullam.
-                        </Feed.Extra>
-                        <Feed.Extra images>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
+                {userInformationFromDB.posts.length > 0 ?
+                    userInformationFromDB.posts.sort((a, b) => { return ((new Date(b.createdAt)) - (new Date(a.createdAt))) }).map(post => {
+                        return <Feed.Event className='profilePost'>
+                            <Feed.Label><Icon className='feedItemIcon' name='location arrow' size='big' /></Feed.Label>
+                            <Feed.Content>
+                                <Feed.Summary className='postTitleText'>
+                                    You added a post: <Link to={`/post/${post._id}`}>{post.title}</Link>
+                                    <Feed.Date className='postDate'>{new Date(post.createdAt).toLocaleString()}</Feed.Date>
+                                </Feed.Summary>
+                                <Feed.Extra className='postSummary' text>
+                                    {post.description.length > 100 ?
+                                    <>{post.description.slice(0,100)+' ......'} <div><a href='#'>Visit post for more</a></div></>
+                                    :
+                                    post.description
+                                    }
+                                </Feed.Extra>
+                                <Feed.Extra images>
+                                    {
+                                        post.images.map(image => {
+                                            console.log(image);
+                                            return <img src={`data:image/jpeg;base64,${image}`} alt='pic' />
+                                        })
+                                    }
+                                </Feed.Extra>
+                            </Feed.Content>
+                        </Feed.Event>
+                    })
+                    :
+                    <Header inverted>No posts to show</Header>
+                }
                 {/* Comment Example */}
                 <Feed.Event className='profileComment'>
                     <Feed.Label>
@@ -82,119 +95,6 @@ const Profile = ({ loggedInUser }) => {
                     </Feed.Content>
                 </Feed.Event>
                 {/* Post Example */}
-                <Feed.Event className='profilePost'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='location arrow' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a post: <a>[POST DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia voluptas perspiciatis excepturi alias aliquam nemo soluta et natus maiores. Velit dicta cupiditate aliquam perspiciatis provident, blanditiis praesentium non. Modi, ullam.
-                        </Feed.Extra>
-                        <Feed.Extra images>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
-                {/* Comment Example */}
-                <Feed.Event className='profileComment'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='comment' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a comment on: <a>[Comment DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor sit amet.
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
-                {/* Post Example */}
-                <Feed.Event className='profilePost'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='location arrow' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a post: <a>[POST DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia voluptas perspiciatis excepturi alias aliquam nemo soluta et natus maiores. Velit dicta cupiditate aliquam perspiciatis provident, blanditiis praesentium non. Modi, ullam.
-                        </Feed.Extra>
-                        <Feed.Extra images>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
-                {/* Comment Example */}
-                <Feed.Event className='profileComment'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='comment' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a comment on: <a>[Comment DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor sit amet.
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
-                {/* Post Example */}
-                <Feed.Event className='profilePost'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='location arrow' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a post: <a>[POST DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia voluptas perspiciatis excepturi alias aliquam nemo soluta et natus maiores. Velit dicta cupiditate aliquam perspiciatis provident, blanditiis praesentium non. Modi, ullam.
-                        </Feed.Extra>
-                        <Feed.Extra images>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                            <a>
-                                <img src='https://react.semantic-ui.com/images/wireframe/image.png' alt='pic' />
-                            </a>
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
-                {/* Comment Example */}
-                <Feed.Event className='profileComment'>
-                    <Feed.Label>
-                        <Icon className='feedItemIcon' name='comment' size='big' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary className='postTitleText'>
-                            You added a comment on: <a>[Comment DETAILS HERE]</a>
-                            <Feed.Date className='postDate'>[DATE HERE]</Feed.Date>
-                        </Feed.Summary>
-                        <Feed.Extra className='postSummary' text>
-                            Lorem ipsum dolor sit amet.
-                        </Feed.Extra>
-                    </Feed.Content>
-                </Feed.Event>
             </Feed>
         </div>
     </div>)

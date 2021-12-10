@@ -10,6 +10,7 @@ import NavBar from './components/pages/NavBar.component';
 import Register from './components/pages/Register.component';
 import Profile from './components/pages/Profile.component';
 import Post from './components/pages/Post.component';
+import AddLocation from './components/pages/AddLocation.component';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
@@ -66,6 +67,7 @@ function App() {
       <Route path='/register' element={<Register loggedInUser={loggedInUser} />} />
       <Route path='/profile' element={<Profile loggedInUser={loggedInUser} />} />
       <Route path={`/post/:postID`} element={<Post loggedInUser={loggedInUser} />} />
+      <Route path={`/addlocation`} element={<AddLocation loggedInUser={loggedInUser} />} />
     </Routes>
   </BrowserRouter>);
 }
