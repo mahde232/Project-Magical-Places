@@ -68,7 +68,6 @@ const Profile = ({ loggedInUser }) => {
                                 <Feed.Extra images>
                                     {
                                         post.images.map(image => {
-                                            console.log(image);
                                             return <img src={`data:image/jpeg;base64,${image}`} alt='pic' />
                                         })
                                     }

@@ -43,7 +43,9 @@ const GoogleMapComponent = ({informOfMarker}) => {
                 map.panTo(e.latLng.toJSON())
             }}
         >
-            <>{clickedLatLng ? <Marker position={clickedLatLng} /> : <></>}</>
+            <>
+                {clickedLatLng ? <Marker position={clickedLatLng} /> : <></>}
+            </>
         </GoogleMap>
     ) : <></>
 }

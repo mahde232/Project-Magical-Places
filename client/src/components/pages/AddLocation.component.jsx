@@ -99,7 +99,7 @@ const AddLocation = ({ loggedInUser }) => {
     }
     const getCoordsFromMap = (coords) => {
         console.log('coords=', coords);
-        setNewLocation((prevState) => ({ ...prevState, ['location']: { type: "Point", coordinates: [coords.lng, coords.lat] } }));
+        setNewLocation((prevState) => ({ ...prevState, ['location']: { lng: coords.lng, lat: coords.lat } }));
     }
     const handleRegions = (e, { value }) => {
         setNewLocation((prevState) => ({ ...prevState, ['region']: value }));

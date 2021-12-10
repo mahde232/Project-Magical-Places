@@ -34,14 +34,11 @@ const postSchema = new Schema({
         ref: 'regions',
     },
     location: { //GeoJSON implementation https://mongoosejs.com/docs/geojson.html
-        type: {
-            type: String,
-            enum: ['Point'],
-            required: true
+        lat: {
+            type: Number
         },
-        coordinates: {
-            type: [Number],
-            required: true
+        lng: {
+            type: Number
         }
     },
     createdAt: {
