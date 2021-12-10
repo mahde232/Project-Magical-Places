@@ -7,6 +7,7 @@ import axios from 'axios'
 import './AddLocation.css'
 
 const AddLocation = ({ loggedInUser }) => {
+
     const navigate = useNavigate();
     const [newLocation, setNewLocation] = useState({
         title: '',
@@ -94,12 +95,11 @@ const AddLocation = ({ loggedInUser }) => {
     }, [])
 
     const handleInput = (e) => {
-        if (e.target.name === 'location') {
-            const coords = e.target.value.split(',');
-            if (coords.length === 2)
-                setNewLocation((prevState) => ({ ...prevState, [e.target.name]: { type: "Point", coordinates: [coords[0].trim(), coords[1].trim()] } }));
-        } else
-            setNewLocation((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        setNewLocation((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+    }
+    const getCoordsFromMap = (coords) => {
+        console.log('coords=', coords);
+        setNewLocation((prevState) => ({ ...prevState, ['location']: { type: "Point", coordinates: [coords.lng, coords.lat] } }));
     }
     const handleRegions = (e, { value }) => {
         setNewLocation((prevState) => ({ ...prevState, ['region']: value }));
@@ -141,9 +141,9 @@ const AddLocation = ({ loggedInUser }) => {
     }
 
     return (<div id='AddLocation'>
-        <Container>
+        <Container fluid id='container'>
             <Segment padded='very'>
-                <Form onSubmit={e => handleSubmit(e)} enctype="multipart/form-data">
+                <Form onSubmit={e => handleSubmit(e)}>
                     <Header as='h2' size='huge' textAlign='center'>Share your favorite location with others<Header.Subheader>“Travel far enough, you meet yourself”</Header.Subheader></Header>
                     <Form.Field
                         fluid
@@ -178,13 +178,15 @@ const AddLocation = ({ loggedInUser }) => {
                         onChange={handleRegions}
                     />
                     <Form.Field
-                        control={Input}
+                        // control={Input}
                         label='Location'
                         name='location'
                         required={true}
-                        onChange={e => handleInput(e)}
-                    >
-                    </Form.Field>
+                    // onChange={e => handleInput(e)}
+                    />
+                    <div style={{ marginBottom: '20px' }}>
+                        <GoogleMapComponent informOfMarker={getCoordsFromMap} />
+                    </div>
                     <Form.Field
                         control={Select}
                         multiple

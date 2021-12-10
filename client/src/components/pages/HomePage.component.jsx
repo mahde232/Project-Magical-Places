@@ -101,19 +101,19 @@ const HomePage = ({ loggedInUser }) => {
                             <div className='categoriesFlex'>
                                 <Link to='/category/61b0e1509fe252c47f0b88c2'>
                                     <div className='categoryDiv'>
-                                        <i class="fas fa-hiking fa-2x"></i>
+                                        <i className="fas fa-hiking fa-2x"></i>
                                         <strong>Hiking</strong>
                                     </div>
                                 </Link>
                                 <Link to='/category/61b0e1e89fe252c47f0b8907'>
                                     <div className='categoryDiv'>
-                                        <i class="fas fa-snowboarding fa-2x"></i>
+                                        <i className="fas fa-snowboarding fa-2x"></i>
                                         <strong>Attractions</strong>
                                     </div>
                                 </Link>
                                 <Link to='/category/61b0e1559fe252c47f0b88cb'>
                                     <div className='categoryDiv'>
-                                        <i class="fas fa-water fa-2x"></i>
+                                        <i className="fas fa-water fa-2x"></i>
                                         <strong>Rivers</strong>
                                     </div>
                                 </Link>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader } from 'semantic-ui-react'
+import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader, Container } from 'semantic-ui-react'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
@@ -30,7 +30,7 @@ const Profile = ({ loggedInUser }) => {
     if (!loggedInUser || !userInformationFromDB) {
         navigate('/')
     }
-    return (userInformationFromDB && <div id='Profile'>
+    return (userInformationFromDB ? <div id='Profile'>
         <div id='information'>
             <div className="profile_card">
                 <div className="profile_thumbnail">
@@ -60,9 +60,9 @@ const Profile = ({ loggedInUser }) => {
                                 </Feed.Summary>
                                 <Feed.Extra className='postSummary' text>
                                     {post.description.length > 100 ?
-                                    <>{post.description.slice(0,100)+' ......'} <div><a href='#'>Visit post for more</a></div></>
-                                    :
-                                    post.description
+                                        <>{post.description.slice(0, 100) + ' ......'} <div><a href='#'>Visit post for more</a></div></>
+                                        :
+                                        post.description
                                     }
                                 </Feed.Extra>
                                 <Feed.Extra images>
@@ -97,7 +97,11 @@ const Profile = ({ loggedInUser }) => {
                 {/* Post Example */}
             </Feed>
         </div>
-    </div>)
+    </div> : <Container>
+        <Dimmer active>
+            <Loader />
+        </Dimmer>
+    </Container>)
 }
 
 export default Profile
