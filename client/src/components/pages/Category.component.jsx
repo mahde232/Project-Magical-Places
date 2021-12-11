@@ -59,7 +59,7 @@ const Category = ({ loggedInUser }) => {
                                     <Segment inverted>
                                         <Header as='h2'>{post.title}</Header>
                                         <div className='postCarousel'>
-                                            <Carousel showThumbs={false} interval={5000} autoPlay={true} infiniteLoop={true}>
+                                            <Carousel showThumbs={false}>
                                                 {post.images.map(image => {
                                                     return <div><img className='carouselImg' src={`data:image/jpeg;base64,${image}`} alt='img' /></div>
                                                 })}
