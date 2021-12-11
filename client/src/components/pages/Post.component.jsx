@@ -67,7 +67,7 @@ const Post = () => {
                         </div>
                     </div>
                     <div id='tagsContainer'>
-                        <Header as='h2' inverted>Tags:</Header>
+                        <Header as='h2' inverted>Useful information:</Header>
                         <Label.Group>
                             {postDetails.tags.map(tag => {
                                 return <Label className='myTag' horizontal><img src={tag.icon} /> <strong>{tag.name}</strong></Label>

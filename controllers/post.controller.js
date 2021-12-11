@@ -23,6 +23,14 @@ const getMyPosts = (req, res) => {
     })
 }
 
+const getPostsByCategory = (req, res) => {
+    const { categoryID } = req.params
+    postModel.find({ category: { $eq: categoryID } }).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').populate('comments', 'creator post text createdAt').exec((err, data) => {
+        if (err) return res.status(404).json(err);
+        return res.status(200).json(data);
+    })
+}
+
 const createPost = (req, res) => {
     const creator = req.authenticatedUser._id;
     const images = req.files
@@ -94,4 +102,5 @@ module.exports = {
     deletePost,
     updatePost,
     addImagesToPost,
+    getPostsByCategory,
 }

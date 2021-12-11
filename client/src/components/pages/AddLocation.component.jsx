@@ -165,6 +165,7 @@ const AddLocation = ({ loggedInUser }) => {
                         onChange={e => handleInput(e)}
                     />
                     <Form.Field
+                        fluid
                         control={Select}
                         options={selectArrays.categoriesArray}
                         label='Category'
@@ -173,6 +174,7 @@ const AddLocation = ({ loggedInUser }) => {
                         onChange={handleCategories}
                     />
                     <Form.Field
+                        fluid
                         control={Select}
                         options={selectArrays.regionsArray}
                         label='Region'
@@ -191,6 +193,7 @@ const AddLocation = ({ loggedInUser }) => {
                         <GoogleMapComponent informOfMarker={getCoordsFromMap} />
                     </div>
                     <Form.Field
+                        fluid
                         control={Select}
                         multiple
                         options={selectArrays.tagsArray}
