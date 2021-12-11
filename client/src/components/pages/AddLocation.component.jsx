@@ -16,6 +16,9 @@ const AddLocation = ({ loggedInUser }) => {
         tags: [],
     })
     const [images, setImages] = useState(null)
+    const [imagesSizeError, setImagesSizeError] = useState(false)
+    const [imagesAmountError, setImagesAmountError] = useState(false)
+    const [imagesTypeError, setImagesTypeError] = useState(false)
     const [selectArrays, setSelectArrays] = useState({
         tagsArray: null,
         categoriesArray: null,
@@ -34,15 +37,6 @@ const AddLocation = ({ loggedInUser }) => {
         setSuccessModalState({ isOpen: false, msg: '' })
         navigate('/');
     }
-
-    //Keep for fast debugging of states
-
-    // useEffect(() => {
-    //     console.log(newLocation);
-    // }, [newLocation])
-    // useEffect(() => {
-    //     console.log(images);
-    // }, [images])
 
     useEffect(async () => {
         const getTags = async () => {
@@ -103,12 +97,30 @@ const AddLocation = ({ loggedInUser }) => {
         setNewLocation((prevState) => ({ ...prevState, ['tags']: value }));
     }
     const handleChangeFiles = (e) => {
-        //Keep these for easy debugging
-
-        // console.log('e.target', e.target);
-        // console.log('e.target.files=', e.target.files);
-        setImages(e.target.files);
+        //reset flags status
+        setImagesSizeError(false);
+        setImagesAmountError(false);
+        setImagesTypeError(false);
+        if (e.target.files.length === 0) { //reset check
+            setImages(null);
+            return;
+        }
+        if (e.target.files.length > 8) { //length check
+            setImagesAmountError(true);
+            return;
+        }
+        for (let i = 0; i < e.target.files.length; i++) {
+            if (e.target.files[i].size > 1000000) { //size check
+                setImagesSizeError(true);
+                return;
+            }
+            if (!e.target.files[i].name.match(/\.(jpeg|jpg|png)$/)) //type check
+                setImagesTypeError(true)
+        }
+        if (!imagesSizeError && !imagesAmountError && !imagesTypeError)
+            setImages(e.target.files);
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
@@ -183,11 +195,9 @@ const AddLocation = ({ loggedInUser }) => {
                         onChange={handleRegions}
                     />
                     <Form.Field
-                        // control={Input}
                         label='Location'
                         name='location'
                         required={true}
-                    // onChange={e => handleInput(e)}
                     />
                     <div style={{ marginBottom: '20px' }}>
                         <GoogleMapComponent informOfMarker={getCoordsFromMap} />
@@ -202,14 +212,19 @@ const AddLocation = ({ loggedInUser }) => {
                         required={true}
                         onChange={handleTags}
                     />
-                    <Form.Field label='Images' required={true} />
-                    <input type="file" name='images' onChange={handleChangeFiles} multiple />
+                    <Form.Field label='Images'
+                        required={true}
+                        error={(imagesSizeError && { content: "Each file can't be over 1MB", pointing: "below" })
+                            || (imagesAmountError && { content: "Exceeded 8 files", pointing: "below" })
+                            || (imagesTypeError && { content: "Only images allowed", pointing: "below" })}
+                    />
+                    <input type="file" name='images' accept="image/*" onChange={handleChangeFiles} multiple />
                     <Form.Button
                         fluid
                         content='Share'
                         type='Submit'
                         id='submitBtn'
-                        disabled={!newLocation.title || !newLocation.description || !newLocation.category || !newLocation.region || !newLocation.location || newLocation.tags.length === 0}
+                        disabled={!newLocation.title || !newLocation.description || !newLocation.category || !newLocation.region || !newLocation.location || newLocation.tags.length === 0 || imagesAmountError || imagesSizeError || imagesTypeError || !images}
                     />
                 </Form>
             </Segment>
