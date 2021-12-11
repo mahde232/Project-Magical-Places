@@ -73,7 +73,7 @@ const Category = ({ loggedInUser }) => {
                                                 </div>
                                                 <div className='postTags'>
                                                     {post.tags.map((tag) => {
-                                                        return <Label><img src={tag.icon} /> {tag.name}</Label>
+                                                        return <Label className='tagdiv'><img src={tag.icon} /> {tag.name}</Label>
                                                     })}
                                                 </div>
                                             </Container>

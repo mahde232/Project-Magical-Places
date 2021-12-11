@@ -24,7 +24,6 @@ html, body {
     height: 100%;
     padding: 2rem;
 }
-
 .postView {
     display: flex;
     flex-direction: column;
@@ -38,4 +37,23 @@ html, body {
 }
 .postDesc {
     margin-bottom: 1rem;
+}
+.tagdiv {
+    margin-bottom: 0.5rem!important;
+}
+
+@media only screen and (max-width: 750px) {
+    #category {
+        padding-top: 51px;
+    }
+    #categoryContainer {
+        width: 90%;
+    }
+    #postsOfCategory {
+        padding: 0;
+    }
+    .postTags {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
