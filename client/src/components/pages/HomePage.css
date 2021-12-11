@@ -4,7 +4,7 @@ html, body {
 #HomePage {
     padding-top: 51px;
     width: 100%;
-    /* height: calc(100% - 51px); */
+    min-height: 100vh;
     background-color: #2E2E2E;
 }
 #header-title {
