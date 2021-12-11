@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Image, Header, Breadcrumb, Segment, Label, Dimmer, Loader, Container, } from 'semantic-ui-react'
+import { Header, Breadcrumb, Segment, Label, Dimmer, Loader, Container, } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel';
-import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios'
@@ -17,20 +16,14 @@ const Post = () => {
             try {
                 const response = await axios.get(`/posts/id=${postID}`);
                 setPostDetails(response.data)
-            } catch (err) {
-                console.log(err);
-            }
+            } catch (err) { console.log(err); }
         }
         getPostDetails();
     }, [])
-
-    useEffect(() => {
-        console.log(postDetails);
-    }, [postDetails])
-
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyAkN31Hu4r9t3fPg7sssX3ymDb81ViB_2A"
+        // googleMapsApiKey: "AIzaSyAkN31Hu4r9t3fPg7sssX3ymDb81ViB_2A"
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE
     })
     const [map, setMap] = useState(null)
     const onLoad = useCallback(function callback(map) {
@@ -41,6 +34,7 @@ const Post = () => {
     const onUnmount = useCallback(function callback(map) {
         setMap(null)
     }, [])
+
     return (<div id='Post'>
         {postDetails ? <>
             <div id='postContainer'>
@@ -51,23 +45,20 @@ const Post = () => {
                         </Header>
                     </Segment>
                     <Breadcrumb>
-                        <Breadcrumb.Section link onClick={()=>{navigate('/')}}>Home</Breadcrumb.Section>
+                        <Breadcrumb.Section link onClick={() => { navigate('/') }}>Home</Breadcrumb.Section>
                         <Breadcrumb.Divider />
-                        <Breadcrumb.Section link onClick={()=>{navigate(`/category/${postDetails.category._id}`)}}>{postDetails.category.name}</Breadcrumb.Section>
+                        <Breadcrumb.Section link onClick={() => { navigate(`/category/${postDetails.category._id}`) }}>{postDetails.category.name}</Breadcrumb.Section>
                         <Breadcrumb.Divider />
                         <Breadcrumb.Section link><strong>{postDetails.title}</strong></Breadcrumb.Section>
                     </Breadcrumb>
                 </div>
                 <div id='carouselDiv'>
-                    <Carousel showThumbs={false} ariaLabel='Recommendations' infiniteLoop={true} dynamicHeight={true}>
+                    <Carousel showThumbs={false} interval={5000} autoPlay={true} ariaLabel='Recommendations' infiniteLoop={true}>
                         {postDetails.images.map(image => {
-                            return <Segment>
-                                <Link to='/test/'><img src={`data:image/jpeg;base64,${image}`} alt='img' /></Link>
-                            </Segment>
+                            return <div><img className='carouselImg' src={`data:image/jpeg;base64,${image}`} alt='img' /></div>
                         })}
                     </Carousel>
                 </div>
-
                 <div id='descAndTags'>
                     <div id='desc'>
                         <Header as='h2' inverted>Description: </Header>

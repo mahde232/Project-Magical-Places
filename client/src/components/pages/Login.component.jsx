@@ -63,11 +63,9 @@ const Login = ({ loggedInUser, informLogin }) => {
         }
     }
 
-    useEffect(() => {
-        if (loggedInUser)
-            navigate('/')
-    }, [loggedInUser]) // eslint-disable-line
-
+    if(loggedInUser) {
+        navigate('/')
+    }
     return (<div id='Login'>
         <Container>
             <Segment padded='very'>

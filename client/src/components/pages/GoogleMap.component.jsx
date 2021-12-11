@@ -1,28 +1,22 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
+import React, { useState, useCallback } from 'react'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const GoogleMapComponent = ({informOfMarker}) => {
     const [clickedLatLng, setClickedLatLng] = useState(null);
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyAkN31Hu4r9t3fPg7sssX3ymDb81ViB_2A"
+        // googleMapsApiKey: "AIzaSyAkN31Hu4r9t3fPg7sssX3ymDb81ViB_2A"
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE
     })
-
     const [map, setMap] = useState(null)
-
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
         map.fitBounds(bounds);
         setMap(map)
     }, [])
-
     const onUnmount = useCallback(function callback(map) {
         setMap(null)
     }, [])
-
-    useEffect(() => {
-        console.log(clickedLatLng);
-    }, [clickedLatLng])
 
     return isLoaded ? (
         <GoogleMap

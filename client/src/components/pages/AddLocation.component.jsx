@@ -1,13 +1,11 @@
-//TODO: images
 import React, { useEffect, useState } from 'react'
-import { Container, Segment, Form, Header, Image, Input, TextArea, Select, Modal, Icon, Button } from 'semantic-ui-react'
+import { Container, Segment, Form, Header, Input, TextArea, Select, Modal, Icon, Button } from 'semantic-ui-react'
 import { useNavigate } from 'react-router'
 import GoogleMapComponent from './GoogleMap.component'
 import axios from 'axios'
 import './AddLocation.css'
 
 const AddLocation = ({ loggedInUser }) => {
-
     const navigate = useNavigate();
     const [newLocation, setNewLocation] = useState({
         title: '',
@@ -23,7 +21,6 @@ const AddLocation = ({ loggedInUser }) => {
         categoriesArray: null,
         regionsArray: null,
     })
-
     const [errorModalState, setErrorModalState] = useState({
         isOpen: false,
         msg: ''
@@ -38,12 +35,14 @@ const AddLocation = ({ loggedInUser }) => {
         navigate('/');
     }
 
-    useEffect(() => {
-        console.log(newLocation);
-    }, [newLocation])
-    useEffect(() => {
-        console.log(images);
-    }, [images])
+    //Keep for fast debugging of states
+
+    // useEffect(() => {
+    //     console.log(newLocation);
+    // }, [newLocation])
+    // useEffect(() => {
+    //     console.log(images);
+    // }, [images])
 
     useEffect(async () => {
         const getTags = async () => {
@@ -56,9 +55,7 @@ const AddLocation = ({ loggedInUser }) => {
                     return optionsArr
                 }
             }
-            catch (err) {
-                console.log(err);
-            }
+            catch (err) { console.log(err); }
         }
         const getCategories = async () => {
             try {
@@ -70,9 +67,7 @@ const AddLocation = ({ loggedInUser }) => {
                     return optionsArr
                 }
             }
-            catch (err) {
-                console.log(err);
-            }
+            catch (err) { console.log(err); }
         }
         const getRegions = async () => {
             try {
@@ -84,9 +79,7 @@ const AddLocation = ({ loggedInUser }) => {
                     return optionsArr
                 }
             }
-            catch (err) {
-                console.log(err);
-            }
+            catch (err) { console.log(err); }
         }
         const tagsArray = await getTags();
         const categoriesArray = await getCategories();
@@ -98,7 +91,6 @@ const AddLocation = ({ loggedInUser }) => {
         setNewLocation((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     }
     const getCoordsFromMap = (coords) => {
-        console.log('coords=', coords);
         setNewLocation((prevState) => ({ ...prevState, ['location']: { lng: coords.lng, lat: coords.lat } }));
     }
     const handleRegions = (e, { value }) => {
@@ -111,21 +103,29 @@ const AddLocation = ({ loggedInUser }) => {
         setNewLocation((prevState) => ({ ...prevState, ['tags']: value }));
     }
     const handleChangeFiles = (e) => {
-        console.log('e.target', e.target);
-        console.log('e.target.files=', e.target.files);
+        //Keep these for easy debugging
+
+        // console.log('e.target', e.target);
+        // console.log('e.target.files=', e.target.files);
         setImages(e.target.files);
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
-        for (let i = 0; i < images.length; i++) {
-            fd.append('images', images[i])
+        if (images) {
+            for (let i = 0; i < images.length; i++) { fd.append('images', images[i]) }
         }
         try {
             const response = await axios.post('/posts/', newLocation);
             if (response.status === 201) {
                 const imgUpload = await axios.put(`/posts/images/id=${response.data._id}`, fd, { headers: { 'content-type': 'multipart/form-data' } })
-                if (imgUpload.status === 201) {
+                if (imgUpload.status !== 201) {
+                    setErrorModalState({
+                        isOpen: true,
+                        msg: 'Server had an error processing the uploaded pictures'
+                    })
+                }
+                else {
                     setSuccessModalState({
                         isOpen: true
                     })
@@ -140,6 +140,9 @@ const AddLocation = ({ loggedInUser }) => {
         }
     }
 
+    if (!loggedInUser) {
+        navigate('/')
+    }
     return (<div id='AddLocation'>
         <Container fluid id='container'>
             <Segment padded='very'>

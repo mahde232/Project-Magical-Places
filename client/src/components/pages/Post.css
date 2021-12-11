@@ -20,6 +20,9 @@ html, body {
 #headerText {
     font-size: 40px;
 }
+.carouselImg {
+    height: 50vh;
+}
 #descAndTags {
     display: flex;
     width: 100%;

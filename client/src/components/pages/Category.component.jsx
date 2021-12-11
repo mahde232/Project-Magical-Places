@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader, Container, Grid } from 'semantic-ui-react'
+import { useNavigate } from 'react-router'
+import { Breadcrumb, Dimmer, Loader, Container } from 'semantic-ui-react'
 import axios from 'axios'
 import './Category.css'
 
 const Category = ({ loggedInUser }) => {
+    const navigate = useNavigate();
     const { categoryID } = useParams();
     const [categoryDetails, setCategoryDetails] = useState(null);
     useEffect(() => {
@@ -26,7 +28,13 @@ const Category = ({ loggedInUser }) => {
     return (
         <div id='category'>
             {categoryDetails ? <>
-                {categoryID}
+                <div id='categoryContainer'>
+                    <Breadcrumb>
+                        <Breadcrumb.Section link onClick={() => { navigate('/') }}>Home</Breadcrumb.Section>
+                        <Breadcrumb.Divider />
+                        <Breadcrumb.Section link onClick={() => { navigate(`/category/${categoryID}`) }}>{categoryDetails.name}</Breadcrumb.Section>
+                    </Breadcrumb>
+                </div>
             </>
                 :
                 <>

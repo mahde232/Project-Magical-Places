@@ -67,7 +67,6 @@ const Register = ({loggedInUser}) => {
     }
     
     if(loggedInUser) {
-        console.log(loggedInUser);
         navigate('/')
     }
     return (<div id='Register'><Container>

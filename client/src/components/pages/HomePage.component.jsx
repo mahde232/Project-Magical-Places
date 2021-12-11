@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
 import { Container, Grid, Header, Image, Search } from 'semantic-ui-react'
+import { Carousel } from 'react-responsive-carousel';
 import 'semantic-ui-css/semantic.min.css'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
 import '../../fonts/stylesheet.css'
 import './HomePage.css'
-// import banner from '../../images/banner-big.png'
-// import banner from '../../images/logo1.png'
 
 let dataSource = [];
 const initialState = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader, Container } from 'semantic-ui-react'
+import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader, Container, Breadcrumb } from 'semantic-ui-react'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
@@ -14,18 +14,11 @@ const Profile = ({ loggedInUser }) => {
         const getProfileData = async () => {
             try {
                 const response = await axios.get(`/users/id=${loggedInUser._id}`)
-                console.log(response);
                 setUserInfo(response.data);
-            } catch (err) {
-                console.log(err);
-            }
+            } catch (err) { console.log(err); }
         }
         getProfileData();
     }, [])
-
-    useEffect(() => {
-        console.log(userInformationFromDB);
-    }, [userInformationFromDB])
 
     if (!loggedInUser || !userInformationFromDB) {
         navigate('/')
@@ -48,6 +41,11 @@ const Profile = ({ loggedInUser }) => {
             </div>
         </div>
         <div id='postsArea'>
+            <Breadcrumb>
+                <Breadcrumb.Section link onClick={() => { navigate('/') }}>Home</Breadcrumb.Section>
+                <Breadcrumb.Divider />
+                <Breadcrumb.Section link onClick={() => { navigate(`/profile`) }}>My profile</Breadcrumb.Section>
+            </Breadcrumb>
             <Header as='h2' inverted>My activity:</Header>
             <Feed>
                 {/* Post Example */}
