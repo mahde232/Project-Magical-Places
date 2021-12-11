@@ -32,16 +32,18 @@ const Profile = ({ loggedInUser }) => {
     }
     return (userInformationFromDB ? <div id='Profile'>
         <div id='information'>
-            <div className="profile_card">
-                <div className="profile_thumbnail">
-                    <Image size='medium' src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F06%2F14%2Fsiberian-husky-puppy-grass-146571433-2000.jpg" alt="" />
-                </div>
-                <div className="profile_details">
-                    <Header as='h2' inverted>{userInformationFromDB.firstName} {userInformationFromDB.lastName}<Header.Subheader>{userInformationFromDB.email}</Header.Subheader></Header>
-                    <Segment.Group size='mini' horizontal>
-                        <Segment compact className='profileInfoSegment'><Label><Icon fitted name='location arrow' /> Posts:<br />{userInformationFromDB.posts.length}</Label></Segment>
-                        <Segment compact className='profileInfoSegment'><Label><Icon fitted name='comment' /> Comments:<br />[11111]</Label></Segment>
-                    </Segment.Group>
+            <div id='infoContainer'>
+                <div className="profile_card">
+                    <div className="profile_thumbnail">
+                        <Image size='medium' src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F06%2F14%2Fsiberian-husky-puppy-grass-146571433-2000.jpg" alt="" />
+                    </div>
+                    <div className="profile_details">
+                        <Header as='h2' inverted>{userInformationFromDB.firstName} {userInformationFromDB.lastName}<Header.Subheader>{userInformationFromDB.email}</Header.Subheader></Header>
+                        <Segment.Group size='mini' horizontal>
+                            <Segment compact className='profileInfoSegment'><Label><Icon fitted name='location arrow' /> Posts:<br />{userInformationFromDB.posts.length}</Label></Segment>
+                            <Segment compact className='profileInfoSegment'><Label><Icon fitted name='comment' /> Comments:<br />[11111]</Label></Segment>
+                        </Segment.Group>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,7 +62,8 @@ const Profile = ({ loggedInUser }) => {
                                 </Feed.Summary>
                                 <Feed.Extra className='postSummary' text>
                                     {post.description.length > 100 ?
-                                        <>{post.description.slice(0, 100) + ' ......'} <div><a href='#'>Visit post for more</a></div></>
+                                        // <>{post.description.slice(0, 100) + ' ......'} <div><a href=''>view post for more</a></div></>
+                                        <>{post.description.slice(0, 100) + ' ......'} <div><Link to={`/post/${post._id}`}>view post for more</Link></div></>
                                         :
                                         post.description
                                     }

@@ -27,12 +27,17 @@
         text-align: center;
     }
 }
-#information {
-    display: flex;
-    border-right: 2px solid #FFFFFF60;
+#infoContainer {
     color: #FFFFFF90;
+}
+#information {
+    border-right: 2px solid #FFFFFF60;
+    display: flex;
+    justify-content: center;
     align-items: center;
     padding: 0 3rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 #postsArea {
     display: flex;

@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Image, Header, Feed, Icon, Segment, Label, Dimmer, Loader, Container, Grid } from 'semantic-ui-react'
+import { Image, Header, Breadcrumb, Segment, Label, Dimmer, Loader, Container, } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from 'react-router-dom'
-import { useGoogleMap, GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { useNavigate } from 'react-router'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios'
 import './Post.css'
 
 const Post = () => {
+    const navigate = useNavigate()
     const { postID } = useParams();
     const [postDetails, setPostDetails] = useState(null);
     useEffect(() => {
@@ -48,6 +50,13 @@ const Post = () => {
                             {postDetails.title} <Header.Subheader>By:</Header.Subheader> <Header.Subheader> {postDetails.creator.firstName} {postDetails.creator.lastName}</Header.Subheader>
                         </Header>
                     </Segment>
+                    <Breadcrumb>
+                        <Breadcrumb.Section link onClick={()=>{navigate('/')}}>Home</Breadcrumb.Section>
+                        <Breadcrumb.Divider />
+                        <Breadcrumb.Section link onClick={()=>{navigate(`/category/${postDetails.category._id}`)}}>{postDetails.category.name}</Breadcrumb.Section>
+                        <Breadcrumb.Divider />
+                        <Breadcrumb.Section link><strong>{postDetails.title}</strong></Breadcrumb.Section>
+                    </Breadcrumb>
                 </div>
                 <div id='carouselDiv'>
                     <Carousel showThumbs={false} ariaLabel='Recommendations' infiniteLoop={true} dynamicHeight={true}>
