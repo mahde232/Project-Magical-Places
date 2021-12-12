@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
-import { Container, Grid, Header, Image, Search } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Search } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel';
 import 'semantic-ui-css/semantic.min.css'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -34,6 +34,7 @@ function searchReducer(state, action) {
 
 const HomePage = ({ loggedInUser }) => {
     const [state, dispatch] = React.useReducer(searchReducer, initialState)
+    const [recommendedPosts, setRecommended] = useState(null)
     const { loading, results, value } = state
     const timeoutRef = React.useRef()
     const navigate = useNavigate();
@@ -41,16 +42,27 @@ const HomePage = ({ loggedInUser }) => {
     useEffect(() => {
         const getPostsFromDB = async () => {
             try {
-                const response = await axios.get('/posts/')
+                const response = await axios.get('/posts/forSearch/')
                 if (response.status === 200)
                     dataSource = response.data;
             } catch (err) { console.log(err); }
         }
+        const getRecommendedFromDB = async () => {
+            try {
+                const response = await axios.get('/posts/forRecommendations/')
+                if (response.status === 200)
+                    setRecommended(response.data)
+            } catch (err) { console.log(err); }
+        }
         getPostsFromDB()
+        getRecommendedFromDB()
     }, [])
     useEffect(() => {
         return () => { clearTimeout(timeoutRef.current) }
     }, [])
+    useEffect(() => {
+        console.log(recommendedPosts);
+    }, [recommendedPosts])
 
     const handleSearchChange = React.useCallback((e, data) => {
         clearTimeout(timeoutRef.current)
@@ -71,12 +83,13 @@ const HomePage = ({ loggedInUser }) => {
 
     return (<div id='HomePage'>
         <Container fluid>
-            <Grid container textAlign='center'>
+            <Grid relaxed='very' container textAlign='center'>
                 <Grid.Row>
+                    <div id='headerDiv'>
                     <Link to='/'>
                         <Header id='header-title' inverted as='h1'>Magical Places</Header>
-                        {/* <Image centered src={banner} alt='Magical Places'/> */}
                     </Link>
+                    </div>
                 </Grid.Row>
                 <Grid.Row id='innerGridContainer'>
                     <Grid container textAlign='center'>
@@ -154,30 +167,6 @@ const HomePage = ({ loggedInUser }) => {
                             </div>
                         </Grid.Row>
                     </Grid>
-                </Grid.Row>
-                <Grid.Row centered>
-                    {/* <div id='recommendations'> */}
-                    <Container fluid>
-                        <Header inverted>Recommendations</Header>
-                        <Carousel showThumbs={false} ariaLabel='Recommendations' autoPlay={true} infiniteLoop={true} dynamicHeight={true} centerMode={true}>
-                            <div>
-                                <Link to='/test/'><Image src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                            </div>
-                            <div>
-                                <Link to='/test/'><Image src='https://wallpaperaccess.com/full/141940.jpg' /></Link>
-                            </div>
-                            <div>
-                                <Link to='/test/'><Image size='small' src='https://i.pinimg.com/736x/7a/15/52/7a155238ab97bf76ef1509f4a55242de.jpg' /></Link>
-                            </div>
-                            <div>
-                                <Link to='/test/'><Image size='small' src='https://wallpaperaccess.com/full/141940.jpg' /></Link>
-                            </div>
-                        </Carousel>
-                    </Container>
-                    {/* </div> */}
-                </Grid.Row>
-                <Grid.Row>
-                    test
                 </Grid.Row>
             </Grid>
         </Container>

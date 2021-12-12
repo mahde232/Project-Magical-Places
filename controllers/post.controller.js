@@ -7,6 +7,20 @@ const getAllPosts = (req, res) => {
     })
 }
 
+const getRecommendedPosts = (req, res) => {
+    postModel.find({}).limit(4).populate('category', 'name').exec((err, data) => {
+        if (err) return res.status(404).json(err);
+        return res.status(200).json(data);
+    })
+}
+
+const getAllPostsForSearch = (req, res) => {
+    postModel.find({}).select('_id title').exec((err, data) => {
+        if (err) return res.status(404).json(err);
+        return res.status(200).json(data);
+    })
+}
+
 const getSpecificPost = (req, res) => {
     const { id } = req.params;
     postModel.findById(id).populate('creator', 'firstName lastName email').populate('category', 'name').populate('tags', 'name icon').populate('region', 'name').populate('comments', 'creator post text createdAt').exec((err, data) => {
@@ -62,7 +76,6 @@ const addImagesToPost = (req, res) => {
         }
         if (data) {
             data.images = req.files.map(image => image.buffer);
-            // data.images = req.files;
             data.save((error, saved) => {
                 if (error) {
                     console.log(error.message);
@@ -96,6 +109,8 @@ const updatePost = async (req, res) => {
 
 module.exports = {
     getAllPosts,
+    getRecommendedPosts,
+    getAllPostsForSearch,
     getSpecificPost,
     getMyPosts,
     createPost,

@@ -19,6 +19,10 @@ const router = express.Router();
 //GET requests
 router.get('/', (req, res) => { //Get All Posts (multiple results)
     postController.getAllPosts(req, res);
+}).get('/forSearch/', (req, res) => { //Get All Posts (multiple results) for search
+    postController.getAllPostsForSearch(req, res);
+}).get('/forRecommendations/', (req, res) => { //Get All Posts (multiple results) for home carousel
+    postController.getRecommendedPosts(req, res);
 }).get('/id=:id', (req, res) => { //Get specific post by id (1 result)
     postController.getSpecificPost(req, res);
 }).get('/category=:categoryID', (req, res) => { //Get posts by category ID (multiple results)

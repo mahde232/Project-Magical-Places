@@ -134,7 +134,7 @@ const AddLocation = ({ loggedInUser }) => {
                 if (imgUpload.status !== 201) {
                     setErrorModalState({
                         isOpen: true,
-                        msg: 'Server had an error processing the uploaded pictures'
+                        msg: 'Server had an error processing the uploaded pictures, the post was still created'
                     })
                 }
                 else {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 import { Breadcrumb, Dimmer, Loader, Container, Segment, Header, Label } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel'
@@ -57,9 +57,9 @@ const Category = ({ loggedInUser }) => {
                             ((categoryDetails && postsOfCategory) ? postsOfCategory.map((post) => {
                                 return <div className='postView'>
                                     <Segment inverted>
-                                        <Header as='h2'>{post.title}</Header>
+                                        <Header as='h2'><Link to={`/post/${post._id}`}>{post.title}</Link></Header>
                                         <div className='postCarousel'>
-                                            <Carousel showThumbs={false}>
+                                            <Carousel showThumbs={false} infiniteLoop={true}>
                                                 {post.images.map(image => {
                                                     return <div><img className='carouselImg' src={`data:image/jpeg;base64,${image}`} alt='img' /></div>
                                                 })}

@@ -4,10 +4,12 @@ html, body {
 #Post {
     display: flex;
     justify-content: center;
-    min-height: calc(100vh - 51px);
+    min-height: 100vh;
+    /* min-height: calc(100vh - 51px); */
     width: 100%;
     background-color: #2E2E2E;
-    padding: 50px 0;
+    padding-top: 102px;
+    padding-bottom: 51px;
 }
 #postContainer {
     display: flex;
