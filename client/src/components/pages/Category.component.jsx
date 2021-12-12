@@ -31,13 +31,6 @@ const Category = ({ loggedInUser }) => {
         getPostsOfCategory();
     }, [categoryID])
 
-    useEffect(() => {
-        console.log(postsOfCategory);
-    }, [postsOfCategory])
-    useEffect(() => {
-        console.log(categoryDetails);
-    }, [categoryDetails])
-
     return (
         <div id='category'>
             {categoryDetails ? <>

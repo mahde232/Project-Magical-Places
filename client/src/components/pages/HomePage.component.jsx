@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
-import { Container, Grid, Header, Segment, Search } from 'semantic-ui-react'
-import { Carousel } from 'react-responsive-carousel';
+import { Container, Grid, Header, Search } from 'semantic-ui-react'
+// import { Carousel } from 'react-responsive-carousel';
 import 'semantic-ui-css/semantic.min.css'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../../fonts/stylesheet.css'
@@ -47,22 +47,19 @@ const HomePage = ({ loggedInUser }) => {
                     dataSource = response.data;
             } catch (err) { console.log(err); }
         }
-        const getRecommendedFromDB = async () => {
-            try {
-                const response = await axios.get('/posts/forRecommendations/')
-                if (response.status === 200)
-                    setRecommended(response.data)
-            } catch (err) { console.log(err); }
-        }
+        // const getRecommendedFromDB = async () => {
+        //     try {
+        //         const response = await axios.get('/posts/forRecommendations/')
+        //         if (response.status === 200)
+        //             setRecommended(response.data)
+        //     } catch (err) { console.log(err); }
+        // }
         getPostsFromDB()
-        getRecommendedFromDB()
+        // getRecommendedFromDB()
     }, [])
     useEffect(() => {
         return () => { clearTimeout(timeoutRef.current) }
     }, [])
-    useEffect(() => {
-        console.log(recommendedPosts);
-    }, [recommendedPosts])
 
     const handleSearchChange = React.useCallback((e, data) => {
         clearTimeout(timeoutRef.current)

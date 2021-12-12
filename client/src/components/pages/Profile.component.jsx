@@ -60,7 +60,6 @@ const Profile = ({ loggedInUser }) => {
                                 </Feed.Summary>
                                 <Feed.Extra className='postSummary' text>
                                     {post.description.length > 100 ?
-                                        // <>{post.description.slice(0, 100) + ' ......'} <div><a href=''>view post for more</a></div></>
                                         <>{post.description.slice(0, 100) + ' ......'} <div><Link to={`/post/${post._id}`}>view post for more</Link></div></>
                                         :
                                         post.description
